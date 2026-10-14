@@ -114,33 +114,11 @@
           <div class="section-label reveal"><span>02</span><i></i>Arsenal technique</div>
           <h2 class="reveal" data-delay="60">Mes outils ne restent pas<br /><span>dans l’ombre.</span></h2>
         </div>
-        <div class="skill-reel" aria-label="Compétences techniques">
-          <div class="skill-reel-track">
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><span>JavaScript</span></div>
-            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><span>Java</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><span>C++</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><span>PHP</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><span>Python</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><span>React</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><span>Angular</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><span>Firebase</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><span>Supabase</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="" /><span>Vercel</span></div>
-            <div class="skill-item"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><span>Render</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><span>JavaScript</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><span>Java</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><span>C++</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><span>PHP</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><span>Python</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><span>React</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><span>Angular</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><span>Firebase</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><span>Supabase</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="" /><span>Vercel</span></div>
-            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><span>Render</span></div>
-          </div>
+        <div id="skills-3d-root" class="skills-3d-root" aria-live="polite"></div>
+        <div id="skills-3d-fallback" class="skills-fallback section-shell">
+          <p>Compétences : JavaScript, Java, C++, PHP, Python, React, Angular, Firebase, Supabase, Vercel et Render.</p>
         </div>
-        <div class="section-shell skill-note reveal"><span>★</span> Les logos sont les identités officielles des technologies citées.</div>
+        <noscript><div class="section-shell skill-note"><span>★</span> Active JavaScript pour explorer le carrousel 3D des compétences.</div></noscript>
       </section>
 
       <section class="motion-section section-shell" aria-labelledby="motion-title">
@@ -217,6 +195,7 @@
       <p>© <span id="year"></span> Yao Mienthy Elidad Reuel</p>
       <a href="#accueil">Retour en haut <span>↑</span></a>
     </footer>
+    <script type="module" src="skills-3d-react.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

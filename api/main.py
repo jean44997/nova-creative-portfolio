@@ -1,0 +1,112 @@
+"""API FastAPI du portfolio MienthyKaya.
+
+GitHub Pages ne peut servir que le front statique. Cette API est prête à être
+déployée séparément sur Render, puis connectée au formulaire du portfolio.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+from typing import Any
+
+import httpx
+from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field, field_validator
+
+
+DEFAULT_ORIGINS = (
+    "https://jean44997.github.io,"
+    "https://mienthykaya.dev,"
+    "https://www.mienthykaya.dev,"
+    "http://localhost:5173"
+)
+EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+
+app = FastAPI(
+    title="MienthyKaya Portfolio API",
+    version="1.0.0",
+    docs_url=None,
+    redoc_url=None,
+)
+
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("MIENTHY_ALLOWED_ORIGINS", DEFAULT_ORIGINS).split(",")
+    if origin.strip()
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
+
+
+class ContactMessage(BaseModel):
+    """Payload accepted from the contact form."""
+
+    name: str = Field(min_length=2, max_length=100)
+    email: str = Field(min_length=5, max_length=254)
+    message: str = Field(min_length=10, max_length=5000)
+
+    @field_validator("name", "message")
+    @classmethod
+    def strip_required_text(cls, value: str) -> str:
+        cleaned = value.strip()
+        if not cleaned:
+            raise ValueError("Ce champ est obligatoire.")
+        return cleaned
+
+    @field_validator("email")
+    @classmethod
+    def validate_email(cls, value: str) -> str:
+        cleaned = value.strip().lower()
+        if not EMAIL_PATTERN.fullmatch(cleaned):
+            raise ValueError("Adresse e-mail invalide.")
+        return cleaned
+
+
+@app.get("/api/health")
+def health() -> dict[str, str]:
+    """Endpoint de supervision sans données sensibles."""
+
+    return {"status": "ok", "service": "mienthykaya-portfolio-api"}
+
+
+@app.post("/api/contact", status_code=status.HTTP_202_ACCEPTED)
+def contact(message: ContactMessage) -> dict[str, Any]:
+    """Valide un message.
+
+    Le fournisseur de livraison n’est jamais stocké dans le dépôt public.
+    Définir CONTACT_DELIVERY_URL dans l’environnement de production avec une
+    URL webhook sûre qui accepte le JSON du message.
+    """
+
+    delivery_url = os.getenv("CONTACT_DELIVERY_URL")
+    if not delivery_url:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="La livraison des messages n’est pas encore configurée.",
+        )
+
+    try:
+        response = httpx.post(
+            delivery_url,
+            json=message.model_dump(),
+            timeout=httpx.Timeout(5.0, connect=2.0),
+        )
+        response.raise_for_status()
+    except httpx.HTTPError as error:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Le service de livraison est indisponible.",
+        ) from error
+
+    return {
+        "accepted": True,
+        "recipient": "mienthykaya@gmail.com",
+        "message_length": len(message.message),
+    }

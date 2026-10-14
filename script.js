@@ -125,7 +125,7 @@ if ("IntersectionObserver" in window) {
   projectEntries.forEach((entry) => entry.classList.add("is-active"));
 }
 
-form?.addEventListener("submit", (event) => {
+form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.checkValidity()) {
     formStatus.textContent = "Complète les champs obligatoires avant de continuer.";
@@ -133,8 +133,34 @@ form?.addEventListener("submit", (event) => {
     return;
   }
   const data = new FormData(form);
+  const payload = {
+    name: String(data.get("name") || "").trim(),
+    email: String(data.get("email") || "").trim(),
+    message: String(data.get("message") || "").trim()
+  };
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  formStatus.textContent = "Vérification du canal de contact…";
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+      formStatus.textContent = "Message transmis. Merci !";
+      form.reset();
+      return;
+    }
+  } catch {
+    // GitHub Pages ne propose pas d’API : le repli mailto reste disponible.
+  } finally {
+    submitButton.disabled = false;
+  }
+
   const subject = encodeURIComponent(`Nouveau projet — ${data.get("name")}`);
   const body = encodeURIComponent(`Nom : ${data.get("name")}\nE-mail : ${data.get("email")}\n\nProjet :\n${data.get("message")}`);
-  formStatus.textContent = "Ouverture de ton application e-mail…";
+  formStatus.textContent = "Ouverture de ton application e-mail (repli sécurisé)…";
   window.location.href = `mailto:mienthykaya@gmail.com?subject=${subject}&body=${body}`;
 });
