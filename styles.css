@@ -78,7 +78,7 @@ img { display: block; max-width: 100%; }
 .world-grid { position: absolute; right: 4%; bottom: 10%; left: 4%; height: 48%; opacity: .45; background-image: linear-gradient(rgba(79,227,255,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(79,227,255,.25) 1px, transparent 1px); background-size: 34px 34px; transform: rotateX(66deg) rotateZ(-3deg) translateZ(-80px) !important; transform-origin: bottom; mask-image: linear-gradient(to top, #000, transparent); }
 .sun-disc { position: absolute; top: 15%; right: 9%; width: 51%; aspect-ratio: 1; border-radius: 50%; background: repeating-linear-gradient(to bottom, var(--red) 0 7px, var(--ink) 8px 13px); box-shadow: 0 0 0 1px rgba(240,75,51,.3), 0 0 55px rgba(240,75,51,.25); transform: translateZ(-70px); }
 .orbital-ring { position: absolute; border: 1px solid rgba(245,240,232,.36); border-radius: 50%; }
-.ring-a { inset: 15% 10%; transform: rotateX(68deg) rotateZ(-12deg) translateZ(12px); animation: orbit-spin 16s linear infinite; }
+.ring-a { inset: 23% 20%; transform: rotateX(68deg) rotateZ(-12deg) translateZ(12px); animation: orbit-spin 16s linear infinite; }
 .ring-b { inset: 24% 18%; border-color: rgba(79,227,255,.6); transform: rotateX(68deg) rotateZ(36deg) translateZ(28px); animation: orbit-spin 11s linear infinite reverse; }
 .manga-card { position: absolute; overflow: hidden; border: 1px solid rgba(245,240,232,.72); background: rgba(17,19,38,.72); box-shadow: 14px 18px 38px rgba(0,0,0,.38); backdrop-filter: blur(5px); }
 .manga-card::after { position: absolute; inset: 0; content: ""; opacity: .23; background: repeating-linear-gradient(135deg, transparent 0 8px, rgba(245,240,232,.24) 9px 10px); pointer-events: none; }
