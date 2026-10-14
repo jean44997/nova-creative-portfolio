@@ -3,173 +3,220 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio créatif de Nova, designer et développeur web." />
-    <meta name="theme-color" content="#09090b" />
-    <title>NOVA. — Portfolio créatif</title>
+    <meta name="description" content="Portfolio de Yao Mienthy Elidad Reuel — développeur web basé à Abidjan." />
+    <meta name="theme-color" content="#090a13" />
+    <link rel="canonical" href="https://mienthykaya.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mienthykaya.dev/" />
+    <meta property="og:title" content="MienthyKaya — Développeur web à Abidjan" />
+    <meta property="og:description" content="Le portfolio de Yao Mienthy Elidad Reuel : expériences web, produits et interfaces vivantes." />
+    <meta name="twitter:card" content="summary" />
+    <title>MienthyKaya — Développeur web à Abidjan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Yao Mienthy Elidad Reuel",
+        "url": "https://mienthykaya.dev/",
+        "email": "mailto:mienthykaya@gmail.com",
+        "telephone": "+2250161099693",
+        "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" },
+        "jobTitle": "Développeur web"
+      }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Aller au contenu</a>
-    <div class="page-grain" aria-hidden="true"></div>
-    <div class="cursor-glow" aria-hidden="true"></div>
-    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="progress-track" aria-hidden="true"><span></span></div>
 
     <header class="site-header">
-      <a class="brand magnetic" href="#home" aria-label="NOVA, accueil">
-        <span class="brand-mark">N</span><span>OVA.</span>
+      <a class="wordmark" href="#accueil" aria-label="MienthyKaya, retour à l'accueil">
+        <span class="wordmark-mark">MK</span><span>MIENTHY<span>KAYA</span></span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
-        <span class="sr-only">Ouvrir le menu</span>
-        <span></span><span></span>
+        <span class="sr-only">Ouvrir le menu</span><i></i><i></i>
       </button>
       <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
-        <a href="#home">Accueil</a>
-        <a href="#about">À propos</a>
-        <a href="#work">Projets</a>
+        <a href="#apropos">À propos</a>
+        <a href="#competences">Compétences</a>
+        <a href="#projets">Projets</a>
         <a href="#contact">Contact</a>
       </nav>
+      <a class="header-cta" href="#contact">Me contacter <span>↗</span></a>
     </header>
 
     <main id="main-content">
-      <section id="home" class="hero section-shell">
+      <section id="accueil" class="hero section-shell">
         <div class="hero-copy">
-          <p class="eyebrow reveal"><span class="pulse-dot"></span> Disponible pour des projets sélectionnés · 2026</p>
+          <p class="kicker reveal"><span class="kicker-dot"></span> Yao Mienthy Elidad Reuel · Abidjan, CI</p>
           <h1 class="hero-title reveal" data-delay="70">
-            Des expériences<br />
-            <span>digitales</span> qui<br />
-            restent en tête.
+            Je code des<br />univers qui <em>frappent.</em>
           </h1>
-          <p class="hero-lede reveal" data-delay="140">Je suis Nova, designer et développeur créatif. Je transforme les idées ambitieuses en identités web rapides, vivantes et mémorables.</p>
-          <div class="hero-actions reveal" data-delay="210">
-            <a class="button button-primary magnetic" href="#work">Découvrir mes projets <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4l5 5-5 5" /></svg></a>
-            <a class="text-link" href="#contact">Démarrer une conversation <span>↗</span></a>
+          <p class="hero-intro reveal" data-delay="130">Développeur web depuis <strong>7 ans</strong>, je conçois des expériences rapides, expressives et prêtes à durer. Du produit utile à l’interface qui fait vibrer.</p>
+          <div class="hero-actions reveal" data-delay="190">
+            <a class="manga-button magnetic" href="#projets"><span>Voir mes projets</span><b>↘</b></a>
+            <a class="ghost-link" href="mailto:mienthykaya@gmail.com">mienthykaya@gmail.com <span>↗</span></a>
           </div>
+          <dl class="hero-stats reveal" data-delay="250">
+            <div><dt>07+</dt><dd>ans d’expérience</dd></div>
+            <div><dt>11</dt><dd>technos maîtrisées</dd></div>
+            <div><dt>01</dt><dd>vision : la vôtre</dd></div>
+          </dl>
         </div>
 
-        <div class="hero-art reveal" data-delay="110" aria-label="Illustration abstraite représentant le design et le code" role="img">
-          <div class="art-halo halo-one"></div>
-          <div class="art-halo halo-two"></div>
-          <div class="art-orbit orbit-one"><span></span></div>
-          <div class="art-orbit orbit-two"><span></span></div>
-          <div class="art-window window-back">
-            <div class="window-dots"><i></i><i></i><i></i></div>
-            <div class="window-lines"><b></b><b></b><b></b><b></b></div>
+        <div class="hero-world reveal" data-delay="110" data-tilt-scene aria-label="Illustration 3D interactive de style manga abstrait" role="img">
+          <p class="world-label top-label">MIENTHYKAYA.DEV<br /><span>PORTFOLIO // 2026</span></p>
+          <div class="world-grid"></div>
+          <div class="sun-disc"></div>
+          <div class="orbital-ring ring-a"></div><div class="orbital-ring ring-b"></div>
+          <div class="manga-card card-back"><span>ABJ<br />225</span></div>
+          <div class="manga-card card-front">
+            <div class="card-scan"></div><small>BUILD / 07</small><strong>MAKE<br /><em>IT REAL.</em></strong><i></i>
           </div>
-          <div class="art-window window-front">
-            <div class="window-dots"><i></i><i></i><i></i></div>
-            <div class="window-screen">
-              <span class="screen-label">NOVA / 01</span>
-              <strong>make it<br /><em>matter.</em></strong>
-              <div class="screen-bars"><i></i><i></i><i></i></div>
-            </div>
+          <div class="manga-portrait" aria-hidden="true">
+            <div class="portrait-hair"></div><div class="portrait-face"></div><div class="portrait-eye eye-left"></div><div class="portrait-eye eye-right"></div><div class="portrait-neck"></div><div class="portrait-jacket"></div>
           </div>
-          <div class="art-core"><span>∞</span></div>
-          <p class="art-caption">Design × code<br />sans compromis</p>
+          <div class="m-token">M<span>K</span></div>
+          <p class="world-label bottom-label">BOUGE LA SOURIS<br /><span>POUR EXPLORER</span></p>
         </div>
-
-        <a class="scroll-cue" href="#about" aria-label="Descendre vers la section À propos"><span>Défiler</span><i></i></a>
+        <a class="scroll-prompt" href="#apropos"><span>Défiler</span><i></i></a>
       </section>
 
-      <section id="about" class="about section-shell">
-        <div class="section-index reveal"><span>01</span><i></i><small>À propos</small></div>
-        <div class="about-grid">
-          <div class="about-visual reveal">
-            <div class="portrait-card">
-              <div class="portrait-noise"></div>
-              <p>Studio indépendant<br />basé à Paris / partout.</p>
-              <div class="portrait-monogram">N<span>.</span></div>
-              <div class="portrait-sticker">depuis<br /><b>2019</b></div>
-            </div>
-            <div class="about-stamp">design<br />&amp; build<br /><span>✳</span></div>
+      <section id="apropos" class="about section-shell">
+        <div class="section-label reveal"><span>01</span><i></i>Le développeur</div>
+        <div class="about-layout">
+          <div class="about-poster reveal">
+            <div class="poster-lines" aria-hidden="true"></div>
+            <p>YAO<br />MIENTHY<br /><span>ELIDAD REUEL</span></p>
+            <b>ABIDJAN<br />CÔTE D’IVOIRE</b>
+            <div class="poster-burst">7<small>ANS</small></div>
           </div>
           <div class="about-copy">
-            <h2 class="section-title reveal">Un site doit être <span>utile</span> avant d’être beau. Les deux, c’est mieux.</h2>
-            <p class="reveal" data-delay="80">J’associe direction artistique, UI design et développement front-end pour créer des univers cohérents — de la première idée au dernier pixel. Mon terrain de jeu : les marques, produits et projets qui veulent avoir du caractère.</p>
-            <p class="reveal" data-delay="120">Chaque détail est pensé pour guider, surprendre et donner envie de rester. Sans sacrifier l’accessibilité ni la vitesse.</p>
-            <div class="skills reveal" data-delay="170" aria-label="Compétences">
-              <span>Direction artistique</span><span>UI / UX</span><span>React &amp; Next.js</span><span>Motion design</span><span>Design systems</span><span>Branding digital</span>
+            <h2 class="reveal">Un développeur qui aime quand le <span>code a du caractère.</span></h2>
+            <p class="reveal" data-delay="70">Je m’appelle <strong>Yao Mienthy Elidad Reuel</strong>. Installé à Abidjan, j’accompagne des idées ambitieuses avec une approche simple : comprendre le besoin, construire juste, puis soigner les détails qui font la différence.</p>
+            <p class="reveal" data-delay="120">J’aime les architectures propres, les interfaces vivantes et les univers manga. Chaque projet doit rester clair, fluide et agréable à utiliser — même quand il ose beaucoup visuellement.</p>
+            <div class="about-cards reveal" data-delay="170">
+              <article><span>Approche</span><b>Produit + design</b><p>Une interface pensée pour les personnes qui l’utilisent.</p></article>
+              <article><span>Terrain</span><b>Web moderne</b><p>Applications, sites vitrines, expériences digitales.</p></article>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="work" class="work section-shell">
-        <div class="section-head">
-          <div class="section-index reveal"><span>02</span><i></i><small>Projets sélectionnés</small></div>
-          <h2 class="work-title reveal" data-delay="60">Quelques <span>mondes</span><br />que j’ai construits.</h2>
+      <section id="competences" class="skills-section">
+        <div class="section-shell skills-heading">
+          <div class="section-label reveal"><span>02</span><i></i>Arsenal technique</div>
+          <h2 class="reveal" data-delay="60">Mes outils ne restent pas<br /><span>dans l’ombre.</span></h2>
+        </div>
+        <div class="skill-reel" aria-label="Compétences techniques">
+          <div class="skill-reel-track">
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><span>JavaScript</span></div>
+            <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><span>Java</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><span>C++</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><span>PHP</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><span>Python</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><span>React</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><span>Angular</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><span>Firebase</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><span>Supabase</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="" /><span>Vercel</span></div>
+            <div class="skill-item"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><span>Render</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><span>JavaScript</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><span>Java</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><span>C++</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><span>PHP</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><span>Python</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><span>React</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><span>Angular</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><span>Firebase</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><span>Supabase</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="" /><span>Vercel</span></div>
+            <div class="skill-item duplicate" aria-hidden="true"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><span>Render</span></div>
+          </div>
+        </div>
+        <div class="section-shell skill-note reveal"><span>★</span> Les logos sont les identités officielles des technologies citées.</div>
+      </section>
+
+      <section class="motion-section section-shell" aria-labelledby="motion-title">
+        <div class="motion-intro">
+          <div class="section-label reveal"><span>03</span><i></i>Motion &amp; 3D</div>
+          <h2 id="motion-title" class="reveal" data-delay="60">Du mouvement,<br /><span>avec une raison.</span></h2>
+          <p class="reveal" data-delay="110">Je combine les technologies adaptées au projet pour faire vivre l’interface sans ralentir ni distraire. L’animation doit clarifier, guider et donner envie d’explorer.</p>
+        </div>
+        <div class="motion-grid">
+          <article class="motion-card reveal" data-delay="60"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="" /><span>TypeScript</span><b>Interactions fiables</b><p>Pour des interfaces animées robustes et faciles à faire évoluer.</p></article>
+          <article class="motion-card reveal" data-delay="100"><img src="https://cdn.simpleicons.org/greensock/88CE02" alt="" /><span>GSAP</span><b>Motion précise</b><p>Pour les timelines, reveals et défilements qui restent parfaitement contrôlés.</p></article>
+          <article class="motion-card reveal" data-delay="140"><img src="https://cdn.simpleicons.org/threedotjs/FFFFFF" alt="" /><span>Three.js</span><b>Scènes 3D web</b><p>Pour ajouter de la profondeur et une interaction 3D utile au récit.</p></article>
+          <article class="motion-card reveal" data-delay="180"><img src="https://cdn.simpleicons.org/framer/0055FF" alt="" /><span>Framer Motion</span><b>UI vivante</b><p>Pour des transitions naturelles dans les applications React.</p></article>
+          <article class="motion-card reveal" data-delay="220"><img src="https://cdn.simpleicons.org/webgl/990000" alt="" /><span>WebGL</span><b>Rendu immersif</b><p>Pour des effets graphiques légers quand le projet en a réellement besoin.</p></article>
+          <article class="motion-card reveal" data-delay="260"><img src="https://cdn.simpleicons.org/svg/FFB13B" alt="" /><span>SVG &amp; CSS</span><b>Détails rapides</b><p>Pour des icônes, micro-interactions et animations performantes.</p></article>
+        </div>
+      </section>
+
+      <section id="projets" class="projects section-shell">
+        <div class="projects-intro">
+          <div class="section-label reveal"><span>04</span><i></i>Projets sélectionnés</div>
+          <h2 class="reveal" data-delay="60">Des projets qui<br /><span>se racontent en scrollant.</span></h2>
+          <p class="reveal" data-delay="120">Trois aperçus de projets à explorer. Fais défiler : la scène évolue à chaque chapitre.</p>
         </div>
 
-        <div class="project-grid">
-          <article class="project-card project-card-large reveal tilt-card" data-delay="80">
-            <a href="#contact" aria-label="Parler du projet Aura" class="project-link">
-              <div class="project-art aura-art">
-                <div class="aura-sun"></div><div class="aura-ring ring-a"></div><div class="aura-ring ring-b"></div>
-                <div class="aura-logo">AURA<span>®</span></div><p>wellness / reimagined</p>
-              </div>
-              <div class="project-meta"><span>01 — Identité &amp; e-commerce</span><span>2026</span></div>
-              <div class="project-title-row"><h3>Aura Rituals</h3><span class="round-arrow">↗</span></div>
-              <p>Une marque de skincare sensorielle, pensée comme une pause dans la journée.</p>
-              <ul class="project-tags" aria-label="Technologies"><li>Branding</li><li>Shopify</li><li>Motion</li></ul>
-            </a>
-          </article>
-
-          <article class="project-card reveal tilt-card" data-delay="130">
-            <a href="#contact" aria-label="Parler du projet Loop" class="project-link">
-              <div class="project-art loop-art">
-                <div class="loop-grid"></div><div class="loop-sphere"></div><div class="loop-word">LOOP</div><div class="loop-chip">24/7<br />CITY</div>
-              </div>
-              <div class="project-meta"><span>02 — Plateforme culturelle</span><span>2025</span></div>
-              <div class="project-title-row"><h3>Loop Radio</h3><span class="round-arrow">↗</span></div>
-              <p>Une fréquence visuelle pour celles et ceux qui façonnent la nuit.</p>
-              <ul class="project-tags" aria-label="Technologies"><li>WebGL</li><li>Next.js</li><li>CMS</li></ul>
-            </a>
-          </article>
-
-          <article class="project-card reveal tilt-card" data-delay="180">
-            <a href="#contact" aria-label="Parler du projet Onda" class="project-link">
-              <div class="project-art onda-art">
-                <div class="onda-wave wave-one"></div><div class="onda-wave wave-two"></div><div class="onda-wave wave-three"></div>
-                <div class="onda-type">ONDA<br /><small>— pasta club</small></div>
-              </div>
-              <div class="project-meta"><span>03 — Restaurant &amp; réservations</span><span>2025</span></div>
-              <div class="project-title-row"><h3>Onda Club</h3><span class="round-arrow">↗</span></div>
-              <p>Une expérience chaleureuse et spontanée pour un restaurant de quartier.</p>
-              <ul class="project-tags" aria-label="Technologies"><li>UI Design</li><li>React</li><li>Booking</li></ul>
-            </a>
-          </article>
+        <div class="project-scroll" data-project-scroll>
+          <div class="project-stage" aria-hidden="true">
+            <div class="stage-orbit"></div>
+            <div class="stage-noise"></div>
+            <div class="stage-screen"><span class="screen-code">01 / SELECTED_WORK</span><b data-stage-number>01</b><strong data-stage-name>BARDEUR YK</strong><p data-stage-kind>PWA sociale mobile</p></div>
+            <div class="stage-cube"><i></i><i></i><i></i></div>
+          </div>
+          <div class="project-list">
+            <article class="project-entry is-active" data-project="bardeur">
+              <span class="project-index">01</span>
+              <div><p class="project-type">PWA SOCIALE · VIDÉOS &amp; MESSAGERIE</p><h3>BARDEUR YK</h3><p class="project-description">Une PWA sociale mobile pour vidéos courtes, lives et messagerie interactive. L’interface privilégie un usage rapide et immersif, pensé pour le mobile.</p><ul><li>React</li><li>TypeScript</li><li>Supabase</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/bardeur2" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a><a class="project-link project-link-demo" href="https://bardeur2.vercel.app" target="_blank" rel="noreferrer">Voir la démo <span>↗</span></a></div></div>
+            </article>
+            <article class="project-entry" data-project="exam">
+              <span class="project-index">02</span>
+              <div><p class="project-type">ÉDUCATION · MOBILE &amp; WEB</p><h3>Mon Exam</h3><p class="project-description">Une application de préparation au BAC pour plusieurs pays d’Afrique de l’Ouest, avec sujets et corrigés. Construite pour rendre la révision plus accessible sur le web et le mobile.</p><ul><li>React Native</li><li>Expo</li><li>Supabase</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/MON-EXAM" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a></div></div>
+            </article>
+            <article class="project-entry" data-project="fxpro">
+              <span class="project-index">03</span>
+              <div><p class="project-type">PROTOTYPE FINTECH · MOBILE</p><h3>FX Pro 2026</h3><p class="project-description">Un prototype de portefeuille mobile avec QR, authentification biométrique et notifications. Le projet explore une expérience financière claire et directe.</p><ul><li>React Native</li><li>Firebase</li><li>TypeScript</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/fx-pro" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a><a class="project-link project-link-demo" href="https://fx-pro-topaz.vercel.app" target="_blank" rel="noreferrer">Voir la démo <span>↗</span></a></div></div>
+            </article>
+          </div>
         </div>
-
-        <div class="work-footer reveal"><p>Vous avez une idée en tête ?</p><a class="button button-outline magnetic" href="#contact">Voir ce qu’on peut créer <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4l5 5-5 5" /></svg></a></div>
+        <div class="all-projects reveal"><a class="manga-button magnetic" href="https://github.com/jean44997" target="_blank" rel="noreferrer"><span>Voir tous les projets</span><b>↗</b></a><p>Plus de code, d’expérimentations et de projets en cours sur GitHub.</p></div>
       </section>
 
       <section id="contact" class="contact section-shell">
-        <div class="contact-copy">
-          <div class="section-index reveal"><span>03</span><i></i><small>Contact</small></div>
-          <h2 class="contact-title reveal" data-delay="60">Une idée qui<br /><span>mérite mieux ?</span></h2>
-          <p class="reveal" data-delay="110">Racontez-moi le projet, même si tout n’est pas encore clair. C’est souvent là que les meilleures choses commencent.</p>
-          <div class="contact-details reveal" data-delay="160">
-            <a href="mailto:hello@nova-studio.fr"><span>Écrire</span>hello@nova-studio.fr <b>↗</b></a>
-            <a href="#home"><span>Basé à</span>Paris, France <b>↗</b></a>
+        <div class="contact-aside">
+          <div class="section-label reveal"><span>05</span><i></i>Contact</div>
+          <h2 class="reveal" data-delay="60">Une idée ?<br /><span>On la rend réelle.</span></h2>
+          <p class="reveal" data-delay="110">Parlons de votre projet, de votre produit ou de votre prochaine expérience digitale.</p>
+          <div class="contact-lines reveal" data-delay="160">
+            <a href="mailto:mienthykaya@gmail.com"><span>E-mail</span>mienthykaya@gmail.com <b>↗</b></a>
+            <a href="tel:+2250161099693"><span>Téléphone</span>+225 01 61 09 96 93 <b>↗</b></a>
+            <p class="contact-line"><span>Domaine</span>mienthykaya.dev <b>À venir</b></p>
           </div>
         </div>
-        <form class="contact-form reveal" data-delay="120" novalidate>
-          <div class="form-field"><label for="name">Votre nom</label><input id="name" name="name" autocomplete="name" placeholder="Comment vous appelez-vous ?" required /></div>
-          <div class="form-field"><label for="email">Votre e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="vous@exemple.com" required /></div>
-          <div class="form-field"><label for="message">Votre message</label><textarea id="message" name="message" rows="4" placeholder="Parlez-moi de votre projet…" required></textarea></div>
-          <div class="form-bottom"><p id="form-status" role="status" aria-live="polite"></p><button class="button button-primary magnetic" type="submit">Envoyer le message <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4l5 5-5 5" /></svg></button></div>
+        <form class="contact-form reveal" data-delay="110" novalidate>
+          <p class="form-kicker">TRANSMISSION / MESSAGE</p>
+          <div class="field"><label for="name">Ton nom</label><input id="name" name="name" autocomplete="name" placeholder="Comment t’appelles-tu ?" required /></div>
+          <div class="field"><label for="email">Ton e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="toi@exemple.com" required /></div>
+          <div class="field"><label for="message">Ton projet</label><textarea id="message" name="message" rows="5" placeholder="Raconte-moi ce que tu veux construire…" required></textarea></div>
+          <div class="form-footer"><p id="form-status" role="status" aria-live="polite"></p><button class="manga-button" type="submit"><span>Préparer le message</span><b>↗</b></button></div>
         </form>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> NOVA. Tous droits réservés.</p>
-      <a href="#home" class="back-top">Retour en haut <span>↑</span></a>
-      <p>Conçu avec intention, codé avec soin.</p>
+      <a class="wordmark" href="#accueil" aria-label="Retour à l'accueil"><span class="wordmark-mark">MK</span><span>MIENTHY<span>KAYA</span></span></a>
+      <p>© <span id="year"></span> Yao Mienthy Elidad Reuel</p>
+      <a href="#accueil">Retour en haut <span>↑</span></a>
     </footer>
-
     <script src="script.js"></script>
   </body>
 </html>

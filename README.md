@@ -1,26 +1,21 @@
-# NOVA. — Portfolio créatif
+# MienthyKaya — portfolio
 
-Portfolio one-page sombre, responsive et animé pour présenter un profil créatif.
+Portfolio statique de Yao Mienthy Elidad Reuel, développeur web basé à Abidjan.
 
-## Aperçu
+## Ouvrir le site
 
-- Navigation fluide et menu mobile accessible
-- Animations d’apparition au défilement, cartes 3D au survol et boutons magnétiques
-- Curseur lumineux pour les écrans avec souris
-- Sections Accueil, À propos, projets et contact
-- Respect de `prefers-reduced-motion`
-- Aucune dépendance ou étape de compilation : ouvrir simplement `index.html`
+Ouvrir `index.html` dans un navigateur moderne, ou utiliser un serveur statique.
 
-## Lancer localement
+## Contenu
 
-Ouvrir `index.html` dans un navigateur, ou servir le dossier avec un serveur statique.
+- scène héro 3D interactive au pointeur ;
+- animations au défilement et mode `prefers-reduced-motion` ;
+- logos officiels de Java, JavaScript, C++, PHP, Python, Firebase, Vercel, Render, Supabase, React et Angular via Simple Icons ;
+- stack motion : TypeScript, GSAP, Three.js, Framer Motion, WebGL, SVG et CSS ;
+- projets publics GitHub : BARDEUR YK, Mon Exam et FX Pro 2026 ;
+- liens de contact directs et formulaire qui prépare un e-mail dans le client local ;
+- métadonnées Open Graph et données structurées pour le référencement.
 
-```bash
-npx serve .
-```
+## Notes
 
-## Personnalisation
-
-Modifiez `index.html` pour les textes et contenus. Les couleurs et règles visuelles principales se trouvent en haut de `styles.css` dans les variables CSS.
-
-Le formulaire est volontairement en mode démo : connectez-le à Formspree, Resend, Netlify Forms ou votre propre API avant mise en production.
+L’illustration du héros est une création CSS originale à l’esthétique manga ; elle ne représente aucun personnage existant. Les liens de démonstration ne sont affichés que pour les démos contrôlées comme accessibles. Les icônes de technologies sont chargées depuis les CDN Simple Icons et Devicon : une connexion internet est donc nécessaire pour les afficher.
