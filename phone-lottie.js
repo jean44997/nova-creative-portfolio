@@ -2,7 +2,8 @@
   const container = document.querySelector("#phone-mockup-player");
   const stage = document.querySelector(".project-stage");
   const lottiePlayer = window.lottie || window.bodymovin;
-  if (!container || !stage || !lottiePlayer) {
+  const animationData = window.PHONE_MOCKUP_LOTTIE_DATA;
+  if (!container || !stage || !lottiePlayer || !animationData) {
     stage?.classList.add("has-phone-frame-error");
     return;
   }
@@ -12,7 +13,7 @@
     renderer: "svg",
     loop: true,
     autoplay: true,
-    path: "assets/iphone-dynamic-island-mockup.json",
+    animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid meet",
       progressiveLoad: true

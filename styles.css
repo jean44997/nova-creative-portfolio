@@ -293,3 +293,4 @@ img { display: block; max-width: 100%; }
 
 /* Le téléphone parcourt la page sans être enfermé dans une carte ni dans une route chiffrée. */
 .project-stage { overflow: visible; border: 0; background: transparent; }.project-stage::before, .project-stage .stage-halo, .project-stage .stage-grid, .project-stage .stage-route, .project-stage .stage-tag { display: none; }.phone-app-screen .screen-code, .phone-app-screen [data-stage-number] { display: none; }.project-phone { width: min(82%, 430px); }.phone-app-screen { top: 8.6%; left: 29.1%; width: 41.8%; height: 82.2%; }
+.project-stage[data-active-project="fxpro"] { --phone-scroll-y: 290px !important; --phone-scroll-x: 0px !important; --phone-scroll-scale: .94 !important; --phone-scroll-rotation: 1deg !important; }

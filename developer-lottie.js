@@ -2,7 +2,8 @@
   const container = document.querySelector("#developer-lottie-player");
   const studio = document.querySelector(".hero-studio");
   const lottiePlayer = window.lottie || window.bodymovin;
-  if (!container || !studio || !lottiePlayer) {
+  const animationData = window.DEVELOPER_LOTTIE_DATA;
+  if (!container || !studio || !lottiePlayer || !animationData) {
     studio?.classList.add("has-lottie-error");
     return;
   }
@@ -24,30 +25,19 @@
     if (!animationFrame) animationFrame = window.requestAnimationFrame(syncAnimation);
   };
 
-  const startAnimation = (animationData) => {
-    // Les 420 dernières images du fichier fourni sont vides. On les retire avant le rendu
-    // afin que la boucle reste continuellement visible.
-    animationData.op = Math.min(Number(animationData.op) || 180, 180);
-    animation = lottiePlayer.loadAnimation({
-      container,
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid meet",
-        progressiveLoad: true
-      }
-    });
-    animation.addEventListener("data_failed", () => studio.classList.add("has-lottie-error"));
-    animation.addEventListener("DOMLoaded", () => studio.classList.add("has-lottie-loaded"));
-    requestSync();
-  };
-
-  fetch("assets/developer-at-work.json")
-    .then((response) => response.ok ? response.json() : Promise.reject(new Error("Animation introuvable")))
-    .then(startAnimation)
-    .catch(() => studio.classList.add("has-lottie-error"));
+  animation = lottiePlayer.loadAnimation({
+    container,
+    renderer: "svg",
+    loop: true,
+    autoplay: true,
+    animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid meet",
+      progressiveLoad: true
+    }
+  });
+  animation.addEventListener("data_failed", () => studio.classList.add("has-lottie-error"));
+  animation.addEventListener("DOMLoaded", () => studio.classList.add("has-lottie-loaded"));
   window.addEventListener("scroll", requestSync, { passive: true });
   window.addEventListener("resize", requestSync, { passive: true });
   requestSync();
