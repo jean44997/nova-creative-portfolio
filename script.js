@@ -240,6 +240,12 @@ if (stage && projectScrollContainer) {
     const finalPosition = entryPositions[entryPositions.length - 1] ?? firstPosition + 1;
     const journey = Math.max(1, finalPosition - firstPosition);
     const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
+    // La progression pilote aussi le chapitre : le téléphone atteint FX Pro même si
+    // l'observateur de visibilité du navigateur se déclenche en retard.
+    const chapterIndex = progress >= .78 ? 2 : progress >= .34 ? 1 : 0;
+    if (projectEntries[chapterIndex] && stage.dataset.activeProject !== projectEntries[chapterIndex].dataset.project) {
+      setActiveProject(projectEntries[chapterIndex]);
+    }
     // La course occupe toute la hauteur de la scène : 01 en haut, 03 près du bas.
     stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 290)}px`);
     stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 16)}px`);
