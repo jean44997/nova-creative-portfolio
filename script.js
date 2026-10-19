@@ -216,6 +216,7 @@ const setActiveProject = (entry) => {
 };
 
 const projectEntries = document.querySelectorAll(".project-entry");
+if (projectEntries[0]) setActiveProject(projectEntries[0]);
 if ("IntersectionObserver" in window) {
   const projectObserver = new IntersectionObserver((entries) => {
     const visible = entries
@@ -239,10 +240,11 @@ if (stage && projectScrollContainer) {
     const finalPosition = entryPositions[entryPositions.length - 1] ?? firstPosition + 1;
     const journey = Math.max(1, finalPosition - firstPosition);
     const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
-    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 146)}px`);
-    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 22)}px`);
-    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .16).toFixed(3)}`);
-    stage.style.setProperty("--phone-scroll-rotation", `${5 - progress * 8}deg`);
+    // La course occupe toute la hauteur de la scène : 01 en haut, 03 près du bas.
+    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 232)}px`);
+    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 34)}px`);
+    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .12).toFixed(3)}`);
+    stage.style.setProperty("--phone-scroll-rotation", `${-2 + progress * 5}deg`);
     stage.style.setProperty("--phone-reflection", `${.13 + progress * .28}`);
     stage.style.setProperty("--screen-scan-shift", `${Math.round(progress * 360)}%`);
     stage.style.setProperty("--screen-scan-opacity", `${.08 + progress * .26}`);

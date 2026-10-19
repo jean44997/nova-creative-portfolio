@@ -15,9 +15,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=lottie-svg-v3" />
+    <link rel="stylesheet" href="styles.css?v=phone-frame-v4" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_svg.min.js"></script>
-    <script defer src="developer-lottie.js?v=lottie-svg-v3"></script>
+    <script defer src="developer-lottie.js?v=phone-frame-v4"></script>
+    <script defer src="phone-lottie.js?v=phone-frame-v4"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -72,17 +73,10 @@
           </dl>
         </div>
 
-        <div class="hero-world hero-studio reveal" data-delay="110" data-tilt-scene aria-label="Animation Developer at work dans l'univers manga de MienthyKaya">
-          <p class="world-label top-label">MIENTHYKAYA.DEV<br /><span>ATELIER // ABIDJAN // 2026</span></p>
-          <div class="studio-radiance" aria-hidden="true"></div><div class="studio-grid" aria-hidden="true"></div>
-          <div class="studio-speed-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <div class="studio-window" aria-hidden="true"><span>01</span><b>夜</b><small>BUILD AFTER DARK</small></div>
+        <div class="hero-world hero-studio hero-lottie-only reveal" data-delay="110" aria-label="Animation Developer at work">
           <div class="studio-lottie-shell" aria-hidden="true">
-            <div class="lottie-orbit orbit-one"></div><div class="lottie-orbit orbit-two"></div>
             <div id="developer-lottie-player" data-developer-lottie></div>
           </div>
-          <div class="studio-console" aria-hidden="true"><span>&gt; scroll_to_create()</span><i></i><i></i><i></i></div>
-          <p class="studio-instruction" data-studio-status>ANIMATION EN MOUVEMENT<br /><span>DÉFILE POUR CHANGER LA SCÈNE</span></p>
         </div>
         <a class="scroll-prompt" href="#apropos"><span>Défiler</span><i></i></a>
       </section>
@@ -162,16 +156,15 @@
           <div class="project-stage" aria-hidden="true">
             <div class="stage-halo"></div><div class="stage-grid"></div>
             <div class="stage-route"><i></i><span>01</span><span>02</span><span>03</span></div>
-            <div class="stage-device">
-              <div class="device-depth"></div><div class="device-reflection"></div><div class="device-volume"></div>
-              <div class="device-speaker"></div><div class="device-camera"></div>
-              <div class="device-screen">
+            <div class="project-phone">
+              <div class="phone-app-screen">
                 <span class="screen-code" data-stage-code>01 / SOCIAL PWA</span>
                 <span class="screen-symbol" data-stage-symbol>BY</span>
                 <img data-stage-logo src="https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png" alt="" />
                 <b data-stage-number>01</b><strong data-stage-name>BARDEUR YK</strong><p data-stage-kind>Vidéos, lives et messagerie</p>
                 <i class="screen-bar"></i><i class="screen-bar short"></i>
               </div>
+              <div id="phone-mockup-player" data-phone-lottie></div>
             </div>
             <div class="stage-tag tag-left" data-stage-tag-left>REACT</div><div class="stage-tag tag-right" data-stage-tag-right>SUPABASE</div>
           </div>
