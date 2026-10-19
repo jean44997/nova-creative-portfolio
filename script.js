@@ -172,17 +172,17 @@ const projectScrollContainer = document.querySelector("[data-project-scroll]");
 let stageSwitchTimer;
 const projectThemes = {
   bardeur: {
-    number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "01 / SOCIAL PWA",
+    number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "SOCIAL PWA",
     color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", leftTag: "REACT", rightTag: "SUPABASE", symbol: "BY",
     logo: "https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png"
   },
   exam: {
-    number: "02", name: "MON EXAM", kind: "Révision BAC, web & mobile", code: "02 / EDUCATION APP",
+    number: "02", name: "MON EXAM", kind: "Révision BAC, web & mobile", code: "EDUCATION APP",
     color: "#17324b", accent: "#ffcc48", accentSoft: "#61dafb", leftTag: "EXPO", rightTag: "BAC 2026", symbol: "EX",
     logo: "https://raw.githubusercontent.com/jean44997/MON-EXAM/main/frontend/assets/images/icon.png"
   },
   fxpro: {
-    number: "03", name: "FX PRO 2026", kind: "Portefeuille mobile sécurisé", code: "03 / FINTECH PROTOTYPE",
+    number: "03", name: "FX PRO 2026", kind: "Portefeuille mobile sécurisé", code: "FINTECH PROTOTYPE",
     color: "#132d27", accent: "#46e3b7", accentSoft: "#f7df1e", leftTag: "FIREBASE", rightTag: "QR PAY", symbol: "FX",
     logo: "https://raw.githubusercontent.com/jean44997/fx-pro/main/frontend/assets/images/icon.png"
   },
@@ -241,10 +241,10 @@ if (stage && projectScrollContainer) {
     const journey = Math.max(1, finalPosition - firstPosition);
     const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
     // La course occupe toute la hauteur de la scène : 01 en haut, 03 près du bas.
-    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 232)}px`);
-    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 34)}px`);
-    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .12).toFixed(3)}`);
-    stage.style.setProperty("--phone-scroll-rotation", `${-2 + progress * 5}deg`);
+    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 290)}px`);
+    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 16)}px`);
+    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .06).toFixed(3)}`);
+    stage.style.setProperty("--phone-scroll-rotation", `${-1 + progress * 2}deg`);
     stage.style.setProperty("--phone-reflection", `${.13 + progress * .28}`);
     stage.style.setProperty("--screen-scan-shift", `${Math.round(progress * 360)}%`);
     stage.style.setProperty("--screen-scan-opacity", `${.08 + progress * .26}`);

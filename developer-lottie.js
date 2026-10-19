@@ -7,22 +7,13 @@
     return;
   }
 
-  const animation = lottiePlayer.loadAnimation({
-    container,
-    renderer: "svg",
-    loop: true,
-    autoplay: true,
-    path: "assets/developer-at-work.json",
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid meet",
-      progressiveLoad: true
-    }
-  });
+  let animation;
 
   let lastScrollY = window.scrollY;
   let animationFrame;
   const syncAnimation = () => {
     animationFrame = undefined;
+    if (!animation) return;
     const bounds = studio.getBoundingClientRect();
     const visible = bounds.bottom > 0 && bounds.top < window.innerHeight;
     const direction = window.scrollY >= lastScrollY ? 1 : -1;
@@ -33,13 +24,30 @@
     if (!animationFrame) animationFrame = window.requestAnimationFrame(syncAnimation);
   };
 
-  animation.addEventListener("data_failed", () => studio.classList.add("has-lottie-error"));
-  animation.addEventListener("DOMLoaded", () => {
-    // Le fichier dure 600 images mais le personnage n'est dessiné que jusqu'à l'image 214.
-    // Cette boucle courte évite plusieurs secondes de scène vide entre deux passages.
-    animation.playSegments([0, 214], true);
-    studio.classList.add("has-lottie-loaded");
-  });
+  const startAnimation = (animationData) => {
+    // Les 420 dernières images du fichier fourni sont vides. On les retire avant le rendu
+    // afin que la boucle reste continuellement visible.
+    animationData.op = Math.min(Number(animationData.op) || 180, 180);
+    animation = lottiePlayer.loadAnimation({
+      container,
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      animationData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid meet",
+        progressiveLoad: true
+      }
+    });
+    animation.addEventListener("data_failed", () => studio.classList.add("has-lottie-error"));
+    animation.addEventListener("DOMLoaded", () => studio.classList.add("has-lottie-loaded"));
+    requestSync();
+  };
+
+  fetch("assets/developer-at-work.json")
+    .then((response) => response.ok ? response.json() : Promise.reject(new Error("Animation introuvable")))
+    .then(startAnimation)
+    .catch(() => studio.classList.add("has-lottie-error"));
   window.addEventListener("scroll", requestSync, { passive: true });
   window.addEventListener("resize", requestSync, { passive: true });
   requestSync();
