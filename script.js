@@ -94,25 +94,29 @@ if (finePointer.matches && !reduceMotion.matches) {
 const studio = document.querySelector(".hero-studio");
 const studioStatus = document.querySelector("[data-studio-status]");
 if (studio) {
-  const updateStudioStatus = () => {
-    const characterAwake = studio.classList.contains("is-character-awake");
-    const terminalOpen = studio.classList.contains("is-terminal-open");
+  let studioFrame;
+  const updateStudioScroll = () => {
+    studioFrame = undefined;
+    const bounds = studio.getBoundingClientRect();
+    const viewHeight = window.innerHeight || 1;
+    const progress = Math.min(1, Math.max(0, (viewHeight * .92 - bounds.top) / (bounds.height + viewHeight * .38)));
+    studio.style.setProperty("--lottie-scroll-y", `${Math.round(-22 + progress * 58)}px`);
+    studio.style.setProperty("--lottie-scroll-x", `${Math.round(-8 + progress * 16)}px`);
+    studio.style.setProperty("--lottie-scroll-rotate", `${-5 + progress * 10}deg`);
+    studio.style.setProperty("--lottie-scroll-scale", `${(1.04 - progress * .12).toFixed(3)}`);
+    studio.style.setProperty("--studio-scroll-progress", progress.toFixed(3));
+    studio.classList.toggle("is-scrolling", bounds.bottom > 0 && bounds.top < viewHeight);
     if (studioStatus) {
-      if (characterAwake && terminalOpen) studioStatus.innerHTML = "MODE CRÉATION ACTIVÉ<br /><span>LE DEV ET SON ORDI SONT PRÊTS</span>";
-      else if (characterAwake) studioStatus.innerHTML = "FOCUS ACTIVÉ<br /><span>CLIQUE L’ORDI POUR LANCER LE TERMINAL</span>";
-      else if (terminalOpen) studioStatus.innerHTML = "TERMINAL OUVERT<br /><span>CLIQUE LE DEV POUR PASSER EN MODE FOCUS</span>";
-      else studioStatus.innerHTML = "CLIQUE LE DEV OU L’ORDI<br /><span>SCÈNE INTERACTIVE</span>";
+      const percent = Math.round(progress * 100);
+      studioStatus.innerHTML = `SCROLL SYNC ${String(percent).padStart(2, "0")}%<br /><span>DEVELOPER AT WORK · EN MOUVEMENT</span>`;
     }
   };
-  studio.querySelectorAll("[data-studio-action]").forEach((control) => {
-    control.addEventListener("click", () => {
-      const isCharacter = control.dataset.studioAction === "character";
-      const className = isCharacter ? "is-character-awake" : "is-terminal-open";
-      studio.classList.toggle(className);
-      control.setAttribute("aria-pressed", String(studio.classList.contains(className)));
-      updateStudioStatus();
-    });
-  });
+  const requestStudioUpdate = () => {
+    if (!studioFrame) studioFrame = window.requestAnimationFrame(updateStudioScroll);
+  };
+  window.addEventListener("scroll", requestStudioUpdate, { passive: true });
+  window.addEventListener("resize", requestStudioUpdate, { passive: true });
+  requestStudioUpdate();
 }
 
 const staticSkillScene = document.querySelector(".static-skill-scene");
@@ -161,6 +165,7 @@ const stageName = document.querySelector("[data-stage-name]");
 const stageKind = document.querySelector("[data-stage-kind]");
 const stageCode = document.querySelector("[data-stage-code]");
 const stageLogo = document.querySelector("[data-stage-logo]");
+const stageSymbol = document.querySelector("[data-stage-symbol]");
 const stageTagLeft = document.querySelector("[data-stage-tag-left]");
 const stageTagRight = document.querySelector("[data-stage-tag-right]");
 const projectScrollContainer = document.querySelector("[data-project-scroll]");
@@ -168,17 +173,17 @@ let stageSwitchTimer;
 const projectThemes = {
   bardeur: {
     number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "01 / SOCIAL PWA",
-    color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", leftTag: "REACT", rightTag: "SUPABASE",
+    color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", leftTag: "REACT", rightTag: "SUPABASE", symbol: "BY",
     logo: "https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png"
   },
   exam: {
     number: "02", name: "MON EXAM", kind: "Révision BAC, web & mobile", code: "02 / EDUCATION APP",
-    color: "#17324b", accent: "#ffcc48", accentSoft: "#61dafb", leftTag: "EXPO", rightTag: "BAC 2026",
+    color: "#17324b", accent: "#ffcc48", accentSoft: "#61dafb", leftTag: "EXPO", rightTag: "BAC 2026", symbol: "EX",
     logo: "https://raw.githubusercontent.com/jean44997/MON-EXAM/main/frontend/assets/images/icon.png"
   },
   fxpro: {
     number: "03", name: "FX PRO 2026", kind: "Portefeuille mobile sécurisé", code: "03 / FINTECH PROTOTYPE",
-    color: "#132d27", accent: "#46e3b7", accentSoft: "#f7df1e", leftTag: "FIREBASE", rightTag: "QR PAY",
+    color: "#132d27", accent: "#46e3b7", accentSoft: "#f7df1e", leftTag: "FIREBASE", rightTag: "QR PAY", symbol: "FX",
     logo: "https://raw.githubusercontent.com/jean44997/fx-pro/main/frontend/assets/images/icon.png"
   },
 };
@@ -196,6 +201,7 @@ const setActiveProject = (entry) => {
   if (stageName) stageName.textContent = theme.name;
   if (stageKind) stageKind.textContent = theme.kind;
   if (stageCode) stageCode.textContent = theme.code;
+  if (stageSymbol) stageSymbol.textContent = theme.symbol;
   if (stageTagLeft) stageTagLeft.textContent = theme.leftTag;
   if (stageTagRight) stageTagRight.textContent = theme.rightTag;
   if (stageLogo) {
@@ -203,6 +209,7 @@ const setActiveProject = (entry) => {
     stageLogo.alt = "Logo " + theme.name;
   }
   stage.classList.remove("is-switching");
+  stage.dataset.activeProject = entry.dataset.project;
   window.requestAnimationFrame(() => stage.classList.add("is-switching"));
   window.clearTimeout(stageSwitchTimer);
   stageSwitchTimer = window.setTimeout(() => stage.classList.remove("is-switching"), 680);
@@ -225,16 +232,21 @@ if (stage && projectScrollContainer) {
   let projectScrollFrame;
   const updateProjectScroll = () => {
     projectScrollFrame = undefined;
-    const bounds = projectScrollContainer.getBoundingClientRect();
     const isWideLayout = window.matchMedia("(min-width: 901px)").matches;
-    const viewportMarker = window.innerHeight * .48;
-    const journey = Math.max(1, bounds.height - window.innerHeight * .48);
-    const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - bounds.top) / journey)) : 0;
-    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 82)}px`);
-    stage.style.setProperty("--phone-scroll-rotation", `${5 - progress * 3}deg`);
-    stage.style.setProperty("--phone-reflection", `${.13 + progress * .2}`);
+    const entryPositions = [...projectEntries].map((entry) => entry.getBoundingClientRect().top);
+    const viewportMarker = window.innerHeight * .44;
+    const firstPosition = entryPositions[0] ?? 0;
+    const finalPosition = entryPositions[entryPositions.length - 1] ?? firstPosition + 1;
+    const journey = Math.max(1, finalPosition - firstPosition);
+    const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
+    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 146)}px`);
+    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 22)}px`);
+    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .16).toFixed(3)}`);
+    stage.style.setProperty("--phone-scroll-rotation", `${5 - progress * 8}deg`);
+    stage.style.setProperty("--phone-reflection", `${.13 + progress * .28}`);
     stage.style.setProperty("--screen-scan-shift", `${Math.round(progress * 360)}%`);
     stage.style.setProperty("--screen-scan-opacity", `${.08 + progress * .26}`);
+    stage.style.setProperty("--route-progress", progress.toFixed(3));
   };
   const requestProjectScrollUpdate = () => {
     if (!projectScrollFrame) projectScrollFrame = window.requestAnimationFrame(updateProjectScroll);

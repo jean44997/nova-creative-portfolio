@@ -15,7 +15,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=interactive-studio" />
+    <link rel="stylesheet" href="styles.css?v=lottie-phone-v2" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-wc@0.9.11/dist/dotlottie-wc.js"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -70,26 +71,17 @@
           </dl>
         </div>
 
-        <div class="hero-world hero-studio reveal" data-delay="110" data-tilt-scene aria-label="Atelier manga interactif de MienthyKaya">
+        <div class="hero-world hero-studio reveal" data-delay="110" data-tilt-scene aria-label="Animation Developer at work dans l'univers manga de MienthyKaya">
           <p class="world-label top-label">MIENTHYKAYA.DEV<br /><span>ATELIER // ABIDJAN // 2026</span></p>
           <div class="studio-radiance" aria-hidden="true"></div><div class="studio-grid" aria-hidden="true"></div>
           <div class="studio-speed-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           <div class="studio-window" aria-hidden="true"><span>01</span><b>夜</b><small>BUILD AFTER DARK</small></div>
-          <div class="studio-console" aria-hidden="true"><span>&gt; npm run vision</span><i></i><i></i><i></i></div>
-
-          <button class="studio-character" type="button" data-studio-action="character" aria-pressed="false" aria-label="Activer le personnage développeur">
-            <span class="character-aura"></span><span class="character-chair"></span><span class="character-leg leg-left"></span><span class="character-leg leg-right"></span>
-            <span class="character-torso"><i class="hoodie-mark">MK</i></span><span class="character-neck"></span>
-            <span class="character-head"><i class="hair hair-a"></i><i class="hair hair-b"></i><i class="eye eye-left"></i><i class="eye eye-right"></i><i class="face-line"></i></span>
-            <span class="character-arm arm-left"></span><span class="character-arm arm-right"></span>
-            <span class="character-bubble">FOCUS<br /><b>100%</b></span>
-          </button>
-
-          <button class="studio-laptop" type="button" data-studio-action="laptop" aria-pressed="false" aria-label="Ouvrir le terminal sur l'ordinateur">
-            <span class="laptop-lid"><i class="laptop-camera"></i><b>&lt;/&gt;</b><em>MIENTHY_OS</em><span class="terminal-lines"><i></i><i></i><i></i></span></span>
-            <span class="laptop-base"><i></i></span><span class="laptop-glow"></span>
-          </button>
-          <p class="studio-instruction" data-studio-status>CLIQUE LE DEV OU L’ORDI<br /><span>SCÈNE INTERACTIVE</span></p>
+          <div class="studio-lottie-shell" aria-hidden="true">
+            <div class="lottie-orbit orbit-one"></div><div class="lottie-orbit orbit-two"></div>
+            <dotlottie-wc data-developer-lottie src="assets/developer-at-work.lottie" autoplay loop speed="1" background="transparent"></dotlottie-wc>
+          </div>
+          <div class="studio-console" aria-hidden="true"><span>&gt; scroll_to_create()</span><i></i><i></i><i></i></div>
+          <p class="studio-instruction" data-studio-status>ANIMATION EN MOUVEMENT<br /><span>DÉFILE POUR CHANGER LA SCÈNE</span></p>
         </div>
         <a class="scroll-prompt" href="#apropos"><span>Défiler</span><i></i></a>
       </section>
@@ -168,11 +160,13 @@
         <div class="project-scroll" data-project-scroll>
           <div class="project-stage" aria-hidden="true">
             <div class="stage-halo"></div><div class="stage-grid"></div>
+            <div class="stage-route"><i></i><span>01</span><span>02</span><span>03</span></div>
             <div class="stage-device">
               <div class="device-depth"></div><div class="device-reflection"></div><div class="device-volume"></div>
               <div class="device-speaker"></div><div class="device-camera"></div>
               <div class="device-screen">
                 <span class="screen-code" data-stage-code>01 / SOCIAL PWA</span>
+                <span class="screen-symbol" data-stage-symbol>BY</span>
                 <img data-stage-logo src="https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png" alt="" />
                 <b data-stage-number>01</b><strong data-stage-name>BARDEUR YK</strong><p data-stage-kind>Vidéos, lives et messagerie</p>
                 <i class="screen-bar"></i><i class="screen-bar short"></i>
@@ -224,7 +218,7 @@
       <p>© <span id="year"></span> Yao Mienthy Elidad Reuel</p>
       <a href="#accueil">Retour en haut <span>↑</span></a>
     </footer>
-    <script type="module" src="skills-3d-react.js?v=interactive-studio"></script>
-    <script src="script.js?v=interactive-studio"></script>
+    <script type="module" src="skills-3d-react.js?v=lottie-phone-v2"></script>
+    <script src="script.js?v=lottie-phone-v2"></script>
   </body>
 </html>
