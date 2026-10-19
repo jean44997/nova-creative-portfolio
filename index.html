@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=project-row-v11" />
+    <link rel="stylesheet" href="styles.css?v=skills-globe-v13" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_svg.min.js"></script>
     <script defer src="developer-lottie-data.js?v=local-safe-v7"></script>
     <script defer src="developer-lottie.js?v=local-safe-v7"></script>
@@ -105,49 +105,34 @@
       <section id="competences" class="skills-section">
         <div class="section-shell skills-heading">
           <div class="section-label reveal"><span>02</span><i></i>Arsenal technique</div>
-          <h2 class="reveal" data-delay="60">Mes outils ne restent pas<br /><span>dans l’ombre.</span></h2>
+          <h2 class="reveal" data-delay="60">Mes outils gravitent<br /><span>autour du globe.</span></h2>
         </div>
-        <div id="skills-3d-root" class="skills-3d-root" aria-live="polite"></div>
-        <div id="skills-3d-fallback" class="skills-fallback section-shell">
-          <div class="static-skill-scene" aria-label="Compétences représentées par des cartes 3D">
-            <p class="static-skill-hint">ATELIER 3D · SAISIS UNE CARTE ET PLACE-LA</p>
-            <div class="static-skill-ring" aria-hidden="true"></div>
-            <div class="static-skill-core"><span>MK</span><b>STACK<br />MASTER</b></div>
-            <div class="static-skill-card card-js" data-skill-card><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><b>JavaScript</b></div>
-            <div class="static-skill-card card-java" data-skill-card><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><b>Java</b></div>
-            <div class="static-skill-card card-cpp" data-skill-card><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><b>C++</b></div>
-            <div class="static-skill-card card-php" data-skill-card><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><b>PHP</b></div>
-            <div class="static-skill-card card-python" data-skill-card><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><b>Python</b></div>
-            <div class="static-skill-card card-react" data-skill-card><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><b>React</b></div>
-            <div class="static-skill-card card-angular" data-skill-card><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><b>Angular</b></div>
-            <div class="static-skill-card card-firebase" data-skill-card><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><b>Firebase</b></div>
-            <div class="static-skill-card card-supabase" data-skill-card><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><b>Supabase</b></div>
-            <div class="static-skill-card card-vercel" data-skill-card><img src="https://cdn.simpleicons.org/vercel/111111" alt="" /><b>Vercel</b></div>
-            <div class="static-skill-card card-render" data-skill-card><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><b>Render</b></div>
+        <div class="skills-globe-stage" data-skills-globe>
+          <canvas id="skills-cobe" aria-label="Globe interactif des compétences"></canvas>
+          <div class="skills-globe-vignette" aria-hidden="true"></div>
+          <div class="skills-globe-content section-shell">
+            <div class="skills-globe-intro reveal" data-delay="100"><p>COBE / ABIDJAN / MONDE</p><strong>Globe interactif</strong><span>Fais glisser le globe. Les outils restent au premier plan.</span></div>
+            <div class="skills-logo-grid" role="list" aria-label="Compétences techniques">
+              <article class="skill-logo-card skill-logo-card--native" role="listitem"><img src="assets/skills/javascript.gif" alt="Logo JavaScript animé" /><b>JavaScript</b></article>
+              <article class="skill-logo-card skill-logo-card--native" role="listitem"><img src="assets/skills/python.gif" alt="Logo Python animé" /><b>Python</b></article>
+              <article class="skill-logo-card skill-logo-card--native" role="listitem"><img src="assets/skills/react.gif" alt="Logo React animé" /><b>React</b></article>
+              <article class="skill-logo-card skill-logo-card--html" role="listitem"><img src="assets/skills/html.png" alt="Logo HTML5" /><b>HTML5</b></article>
+              <article class="skill-logo-card skill-logo-card--vercel" role="listitem"><img src="assets/skills/vercel.png" alt="Logo Vercel" /><b>Vercel</b></article>
+              <article class="skill-logo-card skill-logo-card--cpp" role="listitem"><img src="assets/skills/cplusplus.png" alt="Logo C++" /><b>C++</b></article>
+              <article class="skill-logo-card skill-logo-card--supabase" role="listitem"><img src="assets/skills/supabase.png" alt="Logo Supabase" /><b>Supabase</b></article>
+              <article class="skill-logo-card skill-logo-card--php" role="listitem"><img src="assets/skills/php.png" alt="Logo PHP" /><b>PHP</b></article>
+              <article class="skill-logo-card skill-logo-card--firebase" role="listitem"><img src="assets/skills/firebase.png" alt="Logo Firebase" /><b>Firebase</b></article>
+              <article class="skill-logo-card skill-logo-card--angular" role="listitem"><img src="assets/skills/angular.png" alt="Logo Angular" /><b>Angular</b></article>
+              <article class="skill-logo-card skill-logo-card--css" role="listitem"><img src="assets/skills/css.png" alt="Logo CSS" /><b>CSS</b></article>
+            </div>
           </div>
         </div>
-        <noscript><div class="section-shell skill-note"><span>★</span> Active JavaScript pour explorer le carrousel 3D des compétences.</div></noscript>
-      </section>
-
-      <section class="motion-section section-shell" aria-labelledby="motion-title">
-        <div class="motion-intro">
-          <div class="section-label reveal"><span>03</span><i></i>Motion &amp; 3D</div>
-          <h2 id="motion-title" class="reveal" data-delay="60">Du mouvement,<br /><span>avec une raison.</span></h2>
-          <p class="reveal" data-delay="110">Je combine les technologies adaptées au projet pour faire vivre l’interface sans ralentir ni distraire. L’animation doit clarifier, guider et donner envie d’explorer.</p>
-        </div>
-        <div class="motion-grid">
-          <article class="motion-card reveal" data-delay="60"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="" /><span>TypeScript</span><b>Interactions fiables</b><p>Pour des interfaces animées robustes et faciles à faire évoluer.</p></article>
-          <article class="motion-card reveal" data-delay="100"><img src="https://cdn.simpleicons.org/greensock/88CE02" alt="" /><span>GSAP</span><b>Motion précise</b><p>Pour les timelines, reveals et défilements qui restent parfaitement contrôlés.</p></article>
-          <article class="motion-card reveal" data-delay="140"><img src="https://cdn.simpleicons.org/threedotjs/FFFFFF" alt="" /><span>Three.js</span><b>Scènes 3D web</b><p>Pour ajouter de la profondeur et une interaction 3D utile au récit.</p></article>
-          <article class="motion-card reveal" data-delay="180"><img src="https://cdn.simpleicons.org/framer/0055FF" alt="" /><span>Framer Motion</span><b>UI vivante</b><p>Pour des transitions naturelles dans les applications React.</p></article>
-          <article class="motion-card reveal" data-delay="220"><img src="https://cdn.simpleicons.org/webgl/990000" alt="" /><span>WebGL</span><b>Rendu immersif</b><p>Pour des effets graphiques légers quand le projet en a réellement besoin.</p></article>
-          <article class="motion-card reveal" data-delay="260"><img src="https://cdn.simpleicons.org/svg/FFB13B" alt="" /><span>SVG &amp; CSS</span><b>Détails rapides</b><p>Pour des icônes, micro-interactions et animations performantes.</p></article>
-        </div>
+        <noscript><p class="section-shell skill-note"><span>★</span> Active JavaScript pour utiliser le globe.</p></noscript>
       </section>
 
       <section id="projets" class="projects section-shell">
         <div class="projects-intro">
-          <div class="section-label reveal"><span>04</span><i></i>Projets sélectionnés</div>
+          <div class="section-label reveal"><span>03</span><i></i>Projets sélectionnés</div>
           <h2 class="reveal" data-delay="60">Des projets qui<br /><span>se racontent en scrollant.</span></h2>
           <p class="reveal" data-delay="120">Quatre projets professionnels. Chaque projet présente ses composants essentiels.</p>
         </div>
@@ -181,7 +166,7 @@
 
       <section id="contact" class="contact section-shell">
         <div class="contact-aside">
-          <div class="section-label reveal"><span>05</span><i></i>Contact</div>
+          <div class="section-label reveal"><span>04</span><i></i>Contact</div>
           <h2 class="reveal" data-delay="60">Une idée ?<br /><span>On la rend réelle.</span></h2>
           <p class="reveal" data-delay="110">Parlons de votre projet, de votre produit ou de votre prochaine expérience digitale.</p>
           <div class="contact-lines reveal" data-delay="160">
@@ -205,7 +190,7 @@
       <p>© <span id="year"></span> Yao Mienthy Elidad Reuel</p>
       <a href="#accueil">Retour en haut <span>↑</span></a>
     </footer>
-    <script type="module" src="skills-3d-react.js?v=lottie-svg-v3"></script>
-    <script src="script.js?v=project-row-v11"></script>
+    <script type="module" src="skills-globe.js?v=cobe-v2"></script>
+    <script src="script.js?v=skills-globe-v13"></script>
   </body>
 </html>

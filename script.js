@@ -119,46 +119,6 @@ if (studio) {
   requestStudioUpdate();
 }
 
-const staticSkillScene = document.querySelector(".static-skill-scene");
-if (staticSkillScene) {
-  let draggedCard = null;
-  let cardPointerOffset = { x: 0, y: 0 };
-  const clampCardPosition = (value, min, max) => Math.min(max, Math.max(min, value));
-  staticSkillScene.addEventListener("pointerdown", (event) => {
-    const card = event.target.closest("[data-skill-card]");
-    if (!card) return;
-    const bounds = staticSkillScene.getBoundingClientRect();
-    const cardBounds = card.getBoundingClientRect();
-    draggedCard = card;
-    cardPointerOffset = { x: event.clientX - cardBounds.left, y: event.clientY - cardBounds.top };
-    staticSkillScene.setPointerCapture?.(event.pointerId);
-    card.classList.add("is-dragging");
-    card.style.right = "auto";
-    card.style.bottom = "auto";
-    card.style.zIndex = "9";
-    event.preventDefault();
-  });
-  staticSkillScene.addEventListener("pointermove", (event) => {
-    if (!draggedCard) return;
-    const bounds = staticSkillScene.getBoundingClientRect();
-    const maxX = Math.max(0, bounds.width - draggedCard.offsetWidth);
-    const maxY = Math.max(0, bounds.height - draggedCard.offsetHeight);
-    const nextX = clampCardPosition(event.clientX - bounds.left - cardPointerOffset.x, 0, maxX);
-    const nextY = clampCardPosition(event.clientY - bounds.top - cardPointerOffset.y, 0, maxY);
-    draggedCard.style.left = `${Math.round(nextX)}px`;
-    draggedCard.style.top = `${Math.round(nextY)}px`;
-  });
-  const finishStaticDrag = (event) => {
-    if (!draggedCard) return;
-    staticSkillScene.releasePointerCapture?.(event.pointerId);
-    draggedCard.classList.remove("is-dragging");
-    draggedCard.style.zIndex = "";
-    draggedCard = null;
-  };
-  staticSkillScene.addEventListener("pointerup", finishStaticDrag);
-  staticSkillScene.addEventListener("pointercancel", finishStaticDrag);
-}
-
 const setActiveProject = (entry) => {
   if (!entry) return;
   document.querySelectorAll(".project-entry").forEach((project) => {
