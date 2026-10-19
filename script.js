@@ -8,6 +8,8 @@ const cursor = document.querySelector(".cursor-dot");
 const form = document.querySelector(".contact-form");
 const formStatus = document.querySelector("#form-status");
 const menuLabel = menuButton?.querySelector(".sr-only");
+const fallbackMailLimit = 2;
+const fallbackMailWindowMs = 60 * 60 * 1000;
 
 document.querySelector("#year").textContent = new Date().getFullYear();
 
@@ -93,23 +95,47 @@ const stage = document.querySelector(".project-stage");
 const stageNumber = document.querySelector("[data-stage-number]");
 const stageName = document.querySelector("[data-stage-name]");
 const stageKind = document.querySelector("[data-stage-kind]");
+const stageCode = document.querySelector("[data-stage-code]");
+const stageLogo = document.querySelector("[data-stage-logo]");
+const stageTagLeft = document.querySelector("[data-stage-tag-left]");
+const stageTagRight = document.querySelector("[data-stage-tag-right]");
 const projectThemes = {
-  bardeur: { number: "01", name: "BARDEUR YK", kind: "PWA sociale mobile", color: "#16334d", accent: "#4fe3ff" },
-  exam: { number: "02", name: "MON EXAM", kind: "Préparation au BAC", color: "#2a1d43", accent: "#ffcc48" },
-  fxpro: { number: "03", name: "FX PRO 2026", kind: "Prototype portefeuille", color: "#29251a", accent: "#f04b33" },
+  bardeur: {
+    number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "01 / SOCIAL PWA",
+    color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", leftTag: "REACT", rightTag: "SUPABASE",
+    logo: "https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png"
+  },
+  exam: {
+    number: "02", name: "MON EXAM", kind: "Révision BAC, web & mobile", code: "02 / EDUCATION APP",
+    color: "#17324b", accent: "#ffcc48", accentSoft: "#61dafb", leftTag: "EXPO", rightTag: "BAC 2026",
+    logo: "https://raw.githubusercontent.com/jean44997/MON-EXAM/main/frontend/assets/images/icon.png"
+  },
+  fxpro: {
+    number: "03", name: "FX PRO 2026", kind: "Portefeuille mobile sécurisé", code: "03 / FINTECH PROTOTYPE",
+    color: "#132d27", accent: "#46e3b7", accentSoft: "#f7df1e", leftTag: "FIREBASE", rightTag: "QR PAY",
+    logo: "https://raw.githubusercontent.com/jean44997/fx-pro/main/frontend/assets/images/icon.png"
+  },
 };
 
 const setActiveProject = (entry) => {
   const theme = projectThemes[entry.dataset.project];
-  if (!theme) return;
+  if (!theme || !stage) return;
   document.querySelectorAll(".project-entry").forEach((project) => {
     project.classList.toggle("is-active", project === entry);
   });
   stage.style.setProperty("--stage-color", theme.color);
   stage.style.setProperty("--stage-accent", theme.accent);
-  stageNumber.textContent = theme.number;
-  stageName.textContent = theme.name;
-  stageKind.textContent = theme.kind;
+  stage.style.setProperty("--stage-accent-soft", theme.accentSoft);
+  if (stageNumber) stageNumber.textContent = theme.number;
+  if (stageName) stageName.textContent = theme.name;
+  if (stageKind) stageKind.textContent = theme.kind;
+  if (stageCode) stageCode.textContent = theme.code;
+  if (stageTagLeft) stageTagLeft.textContent = theme.leftTag;
+  if (stageTagRight) stageTagRight.textContent = theme.rightTag;
+  if (stageLogo) {
+    stageLogo.src = theme.logo;
+    stageLogo.alt = "Logo " + theme.name;
+  }
 };
 
 const projectEntries = document.querySelectorAll(".project-entry");
@@ -123,6 +149,20 @@ if ("IntersectionObserver" in window) {
   projectEntries.forEach((entry) => projectObserver.observe(entry));
 } else {
   projectEntries.forEach((entry) => entry.classList.add("is-active"));
+}
+
+if (stage && finePointer.matches && !reduceMotion.matches) {
+  stage.addEventListener("pointermove", (event) => {
+    const bounds = stage.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - .5) * 8;
+    const y = ((event.clientY - bounds.top) / bounds.height - .5) * -6;
+    stage.style.setProperty("--device-rotate-x", y + "deg");
+    stage.style.setProperty("--device-rotate-y", x + "deg");
+  });
+  stage.addEventListener("pointerleave", () => {
+    stage.style.removeProperty("--device-rotate-x");
+    stage.style.removeProperty("--device-rotate-y");
+  });
 }
 
 form?.addEventListener("submit", async (event) => {
@@ -153,11 +193,33 @@ form?.addEventListener("submit", async (event) => {
       form.reset();
       return;
     }
+    if (response.status === 429) {
+      formStatus.textContent = "Trop de messages envoyés. Réessaie dans un moment.";
+      return;
+    }
   } catch {
     // GitHub Pages ne propose pas d’API : le repli mailto reste disponible.
   } finally {
     submitButton.disabled = false;
   }
+
+  const fallbackKey = "mienthykaya-mailto-attempts";
+  const now = Date.now();
+  let storedAttempts = [];
+  try {
+    storedAttempts = JSON.parse(localStorage.getItem(fallbackKey) || "[]");
+  } catch {
+    localStorage.removeItem(fallbackKey);
+  }
+  const attempts = Array.isArray(storedAttempts)
+    ? storedAttempts.filter((timestamp) => Number.isFinite(timestamp) && now - timestamp < fallbackMailWindowMs)
+    : [];
+  if (attempts.length >= fallbackMailLimit) {
+    formStatus.textContent = "Limite locale atteinte : réessaie dans une heure.";
+    return;
+  }
+  attempts.push(now);
+  localStorage.setItem(fallbackKey, JSON.stringify(attempts));
 
   const subject = encodeURIComponent(`Nouveau projet — ${data.get("name")}`);
   const body = encodeURIComponent(`Nom : ${data.get("name")}\nE-mail : ${data.get("email")}\n\nProjet :\n${data.get("message")}`);

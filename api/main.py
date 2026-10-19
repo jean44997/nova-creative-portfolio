@@ -8,10 +8,13 @@ from __future__ import annotations
 
 import os
 import re
+import time
+from collections import defaultdict, deque
+from threading import Lock
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 
@@ -23,6 +26,10 @@ DEFAULT_ORIGINS = (
     "http://localhost:5173"
 )
 EMAIL_PATTERN = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+CONTACT_RATE_LIMIT = 3
+CONTACT_RATE_WINDOW_SECONDS = 60 * 60
+contact_attempts: dict[str, deque[float]] = defaultdict(deque)
+contact_attempts_lock = Lock()
 
 app = FastAPI(
     title="MienthyKaya Portfolio API",
@@ -76,8 +83,28 @@ def health() -> dict[str, str]:
     return {"status": "ok", "service": "mienthykaya-portfolio-api"}
 
 
+def enforce_contact_rate_limit(request: Request, email: str) -> None:
+    """Limit contacts to three delivery attempts per IP and email per hour."""
+
+    client_host = request.client.host if request.client else "unknown"
+    key = f"{client_host}:{email}"
+    now = time.monotonic()
+    with contact_attempts_lock:
+        attempts = contact_attempts[key]
+        while attempts and now - attempts[0] >= CONTACT_RATE_WINDOW_SECONDS:
+            attempts.popleft()
+        if len(attempts) >= CONTACT_RATE_LIMIT:
+            retry_after = int(CONTACT_RATE_WINDOW_SECONDS - (now - attempts[0])) + 1
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Limite atteinte. Réessaie plus tard.",
+                headers={"Retry-After": str(retry_after)},
+            )
+        attempts.append(now)
+
+
 @app.post("/api/contact", status_code=status.HTTP_202_ACCEPTED)
-def contact(message: ContactMessage) -> dict[str, Any]:
+def contact(message: ContactMessage, request: Request) -> dict[str, Any]:
     """Valide un message.
 
     Le fournisseur de livraison n’est jamais stocké dans le dépôt public.
@@ -91,6 +118,8 @@ def contact(message: ContactMessage) -> dict[str, Any]:
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="La livraison des messages n’est pas encore configurée.",
         )
+
+    enforce_contact_rate_limit(request, message.email)
 
     try:
         response = httpx.post(
