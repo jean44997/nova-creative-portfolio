@@ -34,7 +34,12 @@
   };
 
   animation.addEventListener("data_failed", () => studio.classList.add("has-lottie-error"));
-  animation.addEventListener("DOMLoaded", () => studio.classList.add("has-lottie-loaded"));
+  animation.addEventListener("DOMLoaded", () => {
+    // Le fichier dure 600 images mais le personnage n'est dessiné que jusqu'à l'image 214.
+    // Cette boucle courte évite plusieurs secondes de scène vide entre deux passages.
+    animation.playSegments([0, 214], true);
+    studio.classList.add("has-lottie-loaded");
+  });
   window.addEventListener("scroll", requestSync, { passive: true });
   window.addEventListener("resize", requestSync, { passive: true });
   requestSync();

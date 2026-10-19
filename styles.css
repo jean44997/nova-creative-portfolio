@@ -288,3 +288,5 @@ img { display: block; max-width: 100%; }
 @media (max-width: 900px) { .hero-lottie-only { min-height: min(105vw, 560px); }.hero-lottie-only #developer-lottie-player { max-width: 610px; }.project-stage { min-height: 500px; }.project-phone { top: 1%; width: min(82%, 380px); }.phone-app-screen { padding: 1.05rem .62rem .7rem; } }
 @media (max-width: 560px) { .hero-lottie-only { min-height: min(104vw, 440px); }.project-stage { min-height: 440px; }.project-phone { width: min(92%, 330px); }.phone-app-screen { padding: .92rem .52rem .55rem; }.phone-app-screen .screen-code { font-size: .32rem; }.phone-app-screen p { margin-bottom: .45rem; } }
 @media (prefers-reduced-motion: reduce) { .hero-lottie-only .studio-lottie-shell, .project-phone, .project-stage:hover .project-phone { transform: translateX(-50%) !important; } }
+
+@media (min-width: 901px) { .project-stage { align-self: start; top: 9vh; } }
