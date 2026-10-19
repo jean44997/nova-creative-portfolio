@@ -159,85 +159,11 @@ if (staticSkillScene) {
   staticSkillScene.addEventListener("pointercancel", finishStaticDrag);
 }
 
-const stage = document.querySelector(".project-stage");
-const stageNumber = document.querySelector("[data-stage-number]");
-const stageName = document.querySelector("[data-stage-name]");
-const stageKind = document.querySelector("[data-stage-kind]");
-const stageLogo = document.querySelector("[data-stage-logo]");
-const stageComponentOne = document.querySelector("[data-stage-component-one]");
-const stageComponentTwo = document.querySelector("[data-stage-component-two]");
-const stageComponentThree = document.querySelector("[data-stage-component-three]");
-const stageComponentLogoOne = document.querySelector("[data-stage-component-logo-one]");
-const stageComponentLogoTwo = document.querySelector("[data-stage-component-logo-two]");
-const stageComponentLogoThree = document.querySelector("[data-stage-component-logo-three]");
-const projectScrollContainer = document.querySelector("[data-project-scroll]");
-let stageSwitchTimer;
-const projectThemes = {
-  bardeur: {
-    name: "BARDEUR YK", kind: "Vidéos, lives et messagerie",
-    number: "01", color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff",
-    logo: "assets/bardeur-logo.svg", components: [
-      { name: "REACT", logo: "https://cdn.simpleicons.org/react/61DAFB" },
-      { name: "TYPESCRIPT", logo: "https://cdn.simpleicons.org/typescript/3178C6" },
-      { name: "SUPABASE", logo: "https://cdn.simpleicons.org/supabase/3ECF8E" }
-    ]
-  },
-  aib: {
-    name: "AIB IMMOBILIER", kind: "Biens, vente et location",
-    number: "02", color: "#101d28", accent: "#d5a53d", accentSoft: "#f4e1a2",
-    logo: "assets/aib-logo.jpeg", components: [
-      { name: "AIB", logo: "assets/aib-logo.jpeg" },
-      { name: "BIENS", logo: "assets/component-home.svg" },
-      { name: "VENTE", logo: "assets/component-key.svg" }
-    ]
-  },
-  drayat: {
-    name: "DRAYAT IMMOBILIER", kind: "Agence immobilière à Abidjan",
-    number: "03", color: "#202b43", accent: "#7fa8ed", accentSoft: "#e8d4a0",
-    logo: "assets/drayat-logo.jpg", components: [
-      { name: "DRAYAT", logo: "assets/drayat-logo.jpg" },
-      { name: "VISITE", logo: "assets/component-building.svg" },
-      { name: "CONSEIL", logo: "assets/component-compass.svg" }
-    ]
-  },
-  arena: {
-    name: "ARENA AF", kind: "Matchs, défis et classement",
-    number: "04", color: "#24150f", accent: "#ff6a22", accentSoft: "#ffd7a6",
-    logo: "assets/arena-logo.svg", components: [
-      { name: "MATCHS", logo: "assets/component-gamepad.svg" },
-      { name: "DÉFIS", logo: "assets/component-trophy.svg" },
-      { name: "RANK", logo: "assets/arena-logo.svg" }
-    ]
-  },
-};
-
 const setActiveProject = (entry) => {
-  const theme = projectThemes[entry.dataset.project];
-  if (!theme || !stage) return;
+  if (!entry) return;
   document.querySelectorAll(".project-entry").forEach((project) => {
     project.classList.toggle("is-active", project === entry);
   });
-  stage.style.setProperty("--stage-color", theme.color);
-  stage.style.setProperty("--stage-accent", theme.accent);
-  stage.style.setProperty("--stage-accent-soft", theme.accentSoft);
-  if (stageNumber) stageNumber.textContent = theme.number;
-  if (stageName) stageName.textContent = theme.name;
-  if (stageKind) stageKind.textContent = theme.kind;
-  if (stageComponentOne) stageComponentOne.textContent = theme.components[0].name;
-  if (stageComponentTwo) stageComponentTwo.textContent = theme.components[1].name;
-  if (stageComponentThree) stageComponentThree.textContent = theme.components[2].name;
-  if (stageComponentLogoOne) stageComponentLogoOne.src = theme.components[0].logo;
-  if (stageComponentLogoTwo) stageComponentLogoTwo.src = theme.components[1].logo;
-  if (stageComponentLogoThree) stageComponentLogoThree.src = theme.components[2].logo;
-  if (stageLogo) {
-    stageLogo.src = theme.logo;
-    stageLogo.alt = "Logo " + theme.name;
-  }
-  stage.classList.remove("is-switching");
-  stage.dataset.activeProject = entry.dataset.project;
-  window.requestAnimationFrame(() => stage.classList.add("is-switching"));
-  window.clearTimeout(stageSwitchTimer);
-  stageSwitchTimer = window.setTimeout(() => stage.classList.remove("is-switching"), 680);
 };
 
 const projectEntries = document.querySelectorAll(".project-entry");
@@ -252,33 +178,6 @@ if ("IntersectionObserver" in window) {
   projectEntries.forEach((entry) => projectObserver.observe(entry));
 } else {
   projectEntries.forEach((entry) => entry.classList.add("is-active"));
-}
-
-if (stage && projectScrollContainer) {
-  let projectScrollFrame;
-  const updateProjectScroll = () => {
-    projectScrollFrame = undefined;
-    const isWideLayout = window.matchMedia("(min-width: 901px)").matches;
-    const entryPositions = [...projectEntries].map((entry) => entry.getBoundingClientRect().top);
-    const viewportMarker = window.innerHeight * .44;
-    const firstPosition = entryPositions[0] ?? 0;
-    const finalPosition = entryPositions[entryPositions.length - 1] ?? firstPosition + 1;
-    const journey = Math.max(1, finalPosition - firstPosition);
-    const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
-    // Chaque quart de la traversée active un projet. Le dernier est donc atteint
-    // de façon déterministe, même si l'observateur de visibilité se déclenche tard.
-    const chapterIndex = Math.min(projectEntries.length - 1, Math.floor(progress * projectEntries.length));
-    if (projectEntries[chapterIndex] && stage.dataset.activeProject !== projectEntries[chapterIndex].dataset.project) {
-      setActiveProject(projectEntries[chapterIndex]);
-    }
-    stage.style.setProperty("--project-progress", progress.toFixed(3));
-  };
-  const requestProjectScrollUpdate = () => {
-    if (!projectScrollFrame) projectScrollFrame = window.requestAnimationFrame(updateProjectScroll);
-  };
-  window.addEventListener("scroll", requestProjectScrollUpdate, { passive: true });
-  window.addEventListener("resize", requestProjectScrollUpdate, { passive: true });
-  requestProjectScrollUpdate();
 }
 
 

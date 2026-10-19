@@ -448,3 +448,49 @@ img { display: block; max-width: 100%; }
 @media (max-width: 900px) { .project-scroll { display: block; }.project-stage { position: relative !important; top: auto; width: min(100%, 560px); height: 530px; min-height: 530px; margin: 0 auto 2rem; }.project-component-panel { inset: 0; min-height: 0; }.project-list { position: relative; z-index: auto; } }
 @media (max-width: 560px) { .project-stage { height: 490px; min-height: 490px; }.project-component-panel { gap: 1rem; padding: 1.05rem; }.component-project-brand > img { width: 3.3rem; height: 3.3rem; }.project-component-grid { gap: .45rem; }.project-component-card { min-height: 125px; }.project-component-card b { font-size: .39rem; }.component-project-brand strong { font-size: 1.72rem; } }
 @media (prefers-reduced-motion: reduce) { .project-component-card { animation: none !important; transition: none; } }
+
+/* Les composants appartiennent maintenant à leur projet : aucune scène fixe ni défilement parallèle. */
+.project-scroll { display: block; margin-top: clamp(3.5rem, 8vw, 7rem); }
+.project-list { display: grid; gap: clamp(3rem, 7vw, 6rem); }
+.project-entry {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr) minmax(230px, .55fr);
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.6rem);
+  min-height: 310px;
+  padding: 0;
+  opacity: 1;
+  transform: none;
+}
+.project-entry.is-active { opacity: 1; transform: none; }
+.project-entry .project-copy { opacity: .48; transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.project-entry.is-active .project-copy { opacity: 1; transform: translateX(0); }
+.project-entry .project-index { align-self: start; padding-top: .2rem; }
+.inline-project-components { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; align-self: center; }
+.inline-component-card {
+  position: relative;
+  display: grid;
+  min-height: 128px;
+  place-items: center;
+  align-content: center;
+  gap: .65rem;
+  overflow: hidden;
+  border: 1px solid #292a35;
+  color: #727481;
+  background: #08090e;
+  box-shadow: 5px 6px 0 #020307;
+  transition: color .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease), transform .35s var(--ease);
+}
+.inline-component-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; content: ""; background: #323440; transition: background .35s var(--ease), box-shadow .35s var(--ease); }
+.inline-component-card img { width: clamp(2rem, 3.6vw, 3rem); height: clamp(2rem, 3.6vw, 3rem); object-fit: contain; opacity: .48; filter: grayscale(1) brightness(.7); transition: filter .35s var(--ease), opacity .35s var(--ease), transform .35s var(--ease); }
+.inline-component-card b { max-width: 90%; color: inherit; font: 600 clamp(.42rem, .68vw, .55rem)/1.1 var(--mono); letter-spacing: .035em; text-align: center; overflow-wrap: anywhere; }
+#bardeur-yk { --project-accent: #ff4a96; --project-accent-soft: #4fe3ff; --project-deep: #24142d; }
+#aib-immobilier { --project-accent: #d5a53d; --project-accent-soft: #f4e1a2; --project-deep: #101d28; }
+#drayat-immobilier { --project-accent: #7fa8ed; --project-accent-soft: #e8d4a0; --project-deep: #202b43; }
+#arena-af { --project-accent: #ff6a22; --project-accent-soft: #ffd7a6; --project-deep: #24150f; }
+.project-entry.is-active .inline-component-card { border-color: color-mix(in srgb, var(--project-accent), transparent 20%); color: var(--project-accent-soft); background: linear-gradient(145deg, color-mix(in srgb, var(--project-deep), #05060a 45%), #090a0f); box-shadow: 5px 6px 0 #020307, 0 0 18px color-mix(in srgb, var(--project-accent), transparent 74%); }
+.project-entry.is-active .inline-component-card::after { background: var(--project-accent); box-shadow: 0 0 12px var(--project-accent); }
+.project-entry.is-active .inline-component-card img { opacity: 1; filter: none; }
+.inline-component-card:hover { transform: translateY(-6px); }.inline-component-card:hover img { transform: scale(1.08) rotate(-4deg); }
+@media (max-width: 900px) { .project-entry { grid-template-columns: 2.8rem minmax(0, 1fr); }.inline-project-components { grid-column: 2; width: min(100%, 410px); margin-top: .4rem; }.project-entry .project-copy { opacity: .72; } }
+@media (max-width: 560px) { .project-entry { grid-template-columns: 2.2rem minmax(0, 1fr); gap: .7rem; }.inline-project-components { gap: .4rem; }.inline-component-card { min-height: 102px; }.inline-component-card b { font-size: .37rem; } }
