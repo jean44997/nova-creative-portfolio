@@ -91,6 +91,70 @@ if (finePointer.matches && !reduceMotion.matches) {
   });
 }
 
+const studio = document.querySelector(".hero-studio");
+const studioStatus = document.querySelector("[data-studio-status]");
+if (studio) {
+  const updateStudioStatus = () => {
+    const characterAwake = studio.classList.contains("is-character-awake");
+    const terminalOpen = studio.classList.contains("is-terminal-open");
+    if (studioStatus) {
+      if (characterAwake && terminalOpen) studioStatus.innerHTML = "MODE CRÉATION ACTIVÉ<br /><span>LE DEV ET SON ORDI SONT PRÊTS</span>";
+      else if (characterAwake) studioStatus.innerHTML = "FOCUS ACTIVÉ<br /><span>CLIQUE L’ORDI POUR LANCER LE TERMINAL</span>";
+      else if (terminalOpen) studioStatus.innerHTML = "TERMINAL OUVERT<br /><span>CLIQUE LE DEV POUR PASSER EN MODE FOCUS</span>";
+      else studioStatus.innerHTML = "CLIQUE LE DEV OU L’ORDI<br /><span>SCÈNE INTERACTIVE</span>";
+    }
+  };
+  studio.querySelectorAll("[data-studio-action]").forEach((control) => {
+    control.addEventListener("click", () => {
+      const isCharacter = control.dataset.studioAction === "character";
+      const className = isCharacter ? "is-character-awake" : "is-terminal-open";
+      studio.classList.toggle(className);
+      control.setAttribute("aria-pressed", String(studio.classList.contains(className)));
+      updateStudioStatus();
+    });
+  });
+}
+
+const staticSkillScene = document.querySelector(".static-skill-scene");
+if (staticSkillScene) {
+  let draggedCard = null;
+  let cardPointerOffset = { x: 0, y: 0 };
+  const clampCardPosition = (value, min, max) => Math.min(max, Math.max(min, value));
+  staticSkillScene.addEventListener("pointerdown", (event) => {
+    const card = event.target.closest("[data-skill-card]");
+    if (!card) return;
+    const bounds = staticSkillScene.getBoundingClientRect();
+    const cardBounds = card.getBoundingClientRect();
+    draggedCard = card;
+    cardPointerOffset = { x: event.clientX - cardBounds.left, y: event.clientY - cardBounds.top };
+    staticSkillScene.setPointerCapture?.(event.pointerId);
+    card.classList.add("is-dragging");
+    card.style.right = "auto";
+    card.style.bottom = "auto";
+    card.style.zIndex = "9";
+    event.preventDefault();
+  });
+  staticSkillScene.addEventListener("pointermove", (event) => {
+    if (!draggedCard) return;
+    const bounds = staticSkillScene.getBoundingClientRect();
+    const maxX = Math.max(0, bounds.width - draggedCard.offsetWidth);
+    const maxY = Math.max(0, bounds.height - draggedCard.offsetHeight);
+    const nextX = clampCardPosition(event.clientX - bounds.left - cardPointerOffset.x, 0, maxX);
+    const nextY = clampCardPosition(event.clientY - bounds.top - cardPointerOffset.y, 0, maxY);
+    draggedCard.style.left = `${Math.round(nextX)}px`;
+    draggedCard.style.top = `${Math.round(nextY)}px`;
+  });
+  const finishStaticDrag = (event) => {
+    if (!draggedCard) return;
+    staticSkillScene.releasePointerCapture?.(event.pointerId);
+    draggedCard.classList.remove("is-dragging");
+    draggedCard.style.zIndex = "";
+    draggedCard = null;
+  };
+  staticSkillScene.addEventListener("pointerup", finishStaticDrag);
+  staticSkillScene.addEventListener("pointercancel", finishStaticDrag);
+}
+
 const stage = document.querySelector(".project-stage");
 const stageNumber = document.querySelector("[data-stage-number]");
 const stageName = document.querySelector("[data-stage-name]");
@@ -99,6 +163,8 @@ const stageCode = document.querySelector("[data-stage-code]");
 const stageLogo = document.querySelector("[data-stage-logo]");
 const stageTagLeft = document.querySelector("[data-stage-tag-left]");
 const stageTagRight = document.querySelector("[data-stage-tag-right]");
+const projectScrollContainer = document.querySelector("[data-project-scroll]");
+let stageSwitchTimer;
 const projectThemes = {
   bardeur: {
     number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "01 / SOCIAL PWA",
@@ -136,6 +202,10 @@ const setActiveProject = (entry) => {
     stageLogo.src = theme.logo;
     stageLogo.alt = "Logo " + theme.name;
   }
+  stage.classList.remove("is-switching");
+  window.requestAnimationFrame(() => stage.classList.add("is-switching"));
+  window.clearTimeout(stageSwitchTimer);
+  stageSwitchTimer = window.setTimeout(() => stage.classList.remove("is-switching"), 680);
 };
 
 const projectEntries = document.querySelectorAll(".project-entry");
@@ -149,6 +219,29 @@ if ("IntersectionObserver" in window) {
   projectEntries.forEach((entry) => projectObserver.observe(entry));
 } else {
   projectEntries.forEach((entry) => entry.classList.add("is-active"));
+}
+
+if (stage && projectScrollContainer) {
+  let projectScrollFrame;
+  const updateProjectScroll = () => {
+    projectScrollFrame = undefined;
+    const bounds = projectScrollContainer.getBoundingClientRect();
+    const isWideLayout = window.matchMedia("(min-width: 901px)").matches;
+    const viewportMarker = window.innerHeight * .48;
+    const journey = Math.max(1, bounds.height - window.innerHeight * .48);
+    const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - bounds.top) / journey)) : 0;
+    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 82)}px`);
+    stage.style.setProperty("--phone-scroll-rotation", `${5 - progress * 3}deg`);
+    stage.style.setProperty("--phone-reflection", `${.13 + progress * .2}`);
+    stage.style.setProperty("--screen-scan-shift", `${Math.round(progress * 360)}%`);
+    stage.style.setProperty("--screen-scan-opacity", `${.08 + progress * .26}`);
+  };
+  const requestProjectScrollUpdate = () => {
+    if (!projectScrollFrame) projectScrollFrame = window.requestAnimationFrame(updateProjectScroll);
+  };
+  window.addEventListener("scroll", requestProjectScrollUpdate, { passive: true });
+  window.addEventListener("resize", requestProjectScrollUpdate, { passive: true });
+  requestProjectScrollUpdate();
 }
 
 if (stage && finePointer.matches && !reduceMotion.matches) {

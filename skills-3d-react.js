@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "https://esm.sh/react@18.3.1";
+import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18.3.1";
 import { createRoot } from "https://esm.sh/react-dom@18.3.1/client";
 
 const h = React.createElement;
@@ -16,88 +16,116 @@ const skills = [
   { name: "Render", kind: "Déploiement", color: "#46e3b7", icon: "https://cdn.simpleicons.org/render/46E3B7", note: "Hébergement d’API, workers et services web." }
 ];
 
-function SkillOrbit() {
+const desktopSlots = [
+  [5, 9], [24, 9], [43, 9], [62, 9], [81, 9],
+  [5, 45], [24, 45], [43, 45], [62, 45], [81, 45], [43, 78]
+];
+const mobileSlots = [
+  [6, 8], [38, 8], [70, 8], [6, 32], [38, 32], [70, 32],
+  [6, 56], [38, 56], [70, 56], [22, 80], [54, 80]
+];
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+function slotsForViewport() {
+  return window.matchMedia("(max-width: 680px)").matches ? mobileSlots : desktopSlots;
+}
+
+function makePositions() {
+  return slotsForViewport().map(([x, y]) => ({ x, y }));
+}
+
+function SkillWorkbench() {
+  const boardRef = useRef(null);
+  const dragRef = useRef(null);
+  const [positions, setPositions] = useState(makePositions);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [rotation, setRotation] = useState(0);
-  const [dragging, setDragging] = useState(false);
-  const dragStart = useRef({ x: 0, rotation: 0 });
+  const [draggedIndex, setDraggedIndex] = useState(null);
   const active = skills[activeIndex];
 
-  const selectSkill = (index) => {
-    setActiveIndex(index);
-    setRotation(-(index * (360 / skills.length)));
+  useEffect(() => {
+    const onResize = () => setPositions(makePositions());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const resetBoard = () => {
+    setPositions(makePositions());
+    setDraggedIndex(null);
   };
 
-  const onPointerDown = (event) => {
-    event.currentTarget.setPointerCapture?.(event.pointerId);
-    dragStart.current = { x: event.clientX, rotation };
-    setDragging(true);
+  const onPointerDown = (event, index) => {
+    if (event.button !== 0 && event.pointerType === "mouse") return;
+    const board = boardRef.current;
+    if (!board) return;
+    board.setPointerCapture?.(event.pointerId);
+    dragRef.current = { index, x: event.clientX, y: event.clientY, position: positions[index] };
+    setActiveIndex(index);
+    setDraggedIndex(index);
   };
 
   const onPointerMove = (event) => {
-    if (!dragging) return;
-    setRotation(dragStart.current.rotation + (event.clientX - dragStart.current.x) * 0.32);
+    const drag = dragRef.current;
+    const board = boardRef.current;
+    if (!drag || !board) return;
+    const bounds = board.getBoundingClientRect();
+    const compact = bounds.width < 681;
+    const next = {
+      x: clamp(drag.position.x + ((event.clientX - drag.x) / bounds.width) * 100, 1, compact ? 76 : 87),
+      y: clamp(drag.position.y + ((event.clientY - drag.y) / bounds.height) * 100, 1, compact ? 84 : 82)
+    };
+    setPositions((current) => current.map((position, index) => index === drag.index ? next : position));
   };
 
-  const onKeyDown = (event) => {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-    event.preventDefault();
-    const direction = event.key === "ArrowRight" ? 1 : -1;
-    selectSkill((activeIndex + direction + skills.length) % skills.length);
+  const finishDrag = (event) => {
+    if (!dragRef.current) return;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    dragRef.current = null;
+    setDraggedIndex(null);
   };
 
-  const nodes = skills.map((skill, index) => {
-    const angle = index * (360 / skills.length);
+  const tiles = useMemo(() => skills.map((skill, index) => {
+    const position = positions[index];
     return h("button", {
       type: "button",
       key: skill.name,
-      className: "orbit-node" + (activeIndex === index ? " is-active" : ""),
-      style: { transform: "rotateY(" + angle + "deg) translateZ(var(--orbit-radius)) rotateY(" + -angle + "deg)" },
-      onClick: () => selectSkill(index),
+      className: "skill-tile" + (activeIndex === index ? " is-active" : "") + (draggedIndex === index ? " is-dragging" : ""),
+      style: { left: `${position.x}%`, top: `${position.y}%`, "--tile-color": skill.color, "--tile-tilt": `${((index % 5) - 2) * 1.7}deg` },
+      onPointerDown: (event) => onPointerDown(event, index),
+      onClick: () => setActiveIndex(index),
       "aria-pressed": activeIndex === index,
-      "aria-label": "Afficher " + skill.name
+      "aria-label": `Déplacer ou sélectionner ${skill.name}`
     }, [
+      h("span", { className: "skill-tile-glint", "aria-hidden": true, key: "glint" }),
       h("img", { src: skill.icon, alt: "", key: "icon" }),
       h("span", { key: "name" }, skill.name)
     ]);
-  });
+  }), [positions, activeIndex, draggedIndex]);
 
-  const pagination = skills.map((skill, index) => h("button", {
-    type: "button",
-    key: skill.name,
-    className: activeIndex === index ? "is-active" : "",
-    onClick: () => selectSkill(index),
-    "aria-label": "Sélectionner " + skill.name,
-    "aria-pressed": activeIndex === index
-  }, [h("span", { key: "dot" }), skill.name]));
-
-  return h("section", { className: "skill-orbit", "aria-label": "Compétences techniques en 3D" }, [
-    h("div", { className: "skill-orbit-copy", key: "copy" }, [
-      h("p", { className: "orbit-label", key: "label" }, "EXPLORE L’ARSENAL"),
-      h("p", { key: "description" }, "Glisse le carrousel ou sélectionne une technologie. La 3D reste au service de la lecture.")
+  return h("section", { className: "skill-workbench", "aria-label": "Atelier interactif des compétences" }, [
+    h("div", { className: "workbench-copy", key: "copy" }, [
+      h("p", { className: "orbit-label", key: "label" }, "ATELIER 3D INTERACTIF"),
+      h("h3", { key: "title" }, "Compose ton propre\narsenal."),
+      h("p", { key: "description" }, "Prends une carte, déplace-la où tu veux, puis clique dessus pour lire son rôle. Rien n’est caché derrière une autre carte."),
+      h("div", { className: "workbench-active", style: { "--active-color": active.color }, key: "active" }, [
+        h("img", { src: active.icon, alt: "", key: "icon" }),
+        h("div", { key: "text" }, [h("span", { key: "kind" }, active.kind), h("b", { key: "name" }, active.name), h("p", { key: "note" }, active.note)])
+      ]),
+      h("button", { type: "button", className: "workbench-reset", onClick: resetBoard, key: "reset" }, "Réorganiser les cartes ↺")
     ]),
     h("div", {
-      className: "orbit-viewport" + (dragging ? " is-dragging" : ""),
-      key: "viewport",
-      onPointerDown,
+      className: "skill-board" + (draggedIndex !== null ? " is-grabbing" : ""),
+      ref: boardRef,
       onPointerMove,
-      onPointerUp: () => setDragging(false),
-      onPointerCancel: () => setDragging(false),
-      onKeyDown,
-      role: "group",
-      tabIndex: 0,
-      "aria-label": "Carrousel de compétences. Utilise les flèches gauche et droite."
+      onPointerUp: finishDrag,
+      onPointerCancel: finishDrag,
+      key: "board",
+      "aria-label": "Plateau de cartes à déplacer"
     }, [
-      h("div", { className: "orbit-shadow", "aria-hidden": true, key: "shadow" }),
-      h("div", { className: "orbit-scene", key: "scene", style: { transform: "rotateX(-8deg) rotateY(" + rotation + "deg)" } }, nodes),
-      h("div", { className: "orbit-core", key: "core", style: { "--active-color": active.color } }, [
-        h("img", { src: active.icon, alt: "", key: "icon" }),
-        h("span", { key: "kind" }, active.kind),
-        h("strong", { key: "name" }, active.name),
-        h("p", { key: "note" }, active.note)
-      ])
-    ]),
-    h("div", { className: "orbit-pagination", "aria-label": "Sélection rapide des compétences", key: "pagination" }, pagination)
+      h("div", { className: "board-grid", "aria-hidden": true, key: "grid" }),
+      h("div", { className: "board-core", "aria-hidden": true, key: "core" }, [h("b", { key: "mark" }, "MK"), h("span", { key: "caption" }, "STACK\nCRAFT")]),
+      h("p", { className: "board-hint", key: "hint" }, "GLISSE · ALIGNE · EXPLORE"),
+      ...tiles
+    ])
   ]);
 }
 
@@ -105,6 +133,6 @@ const mount = document.querySelector("#skills-3d-root");
 const fallback = document.querySelector("#skills-3d-fallback");
 
 if (mount) {
-  createRoot(mount).render(h(SkillOrbit));
+  createRoot(mount).render(h(SkillWorkbench));
   if (fallback) fallback.hidden = true;
 }

@@ -70,17 +70,26 @@
           </dl>
         </div>
 
-        <div class="hero-world reveal" data-delay="110" data-tilt-scene aria-label="Scène 3D interactive MienthyKaya inspirée du graphisme manga" role="img">
-          <p class="world-label top-label">MIENTHYKAYA.DEV<br /><span>DEV // ABIDJAN // 2026</span></p>
-          <div class="world-grid"></div>
-          <div class="world-aura aura-red"></div><div class="world-aura aura-blue"></div>
-          <div class="orbital-ring ring-a"></div><div class="orbital-ring ring-b"></div><div class="orbital-ring ring-c"></div>
-          <div class="manga-panel panel-code"><span>01</span><b>&lt;/&gt;</b><small>BUILD MODE</small></div>
-          <div class="manga-panel panel-location"><span>ABJ</span><b>225</b><small>ORIGIN POINT</small></div>
-          <div class="manga-panel panel-status"><i></i><span>SYSTEM ONLINE</span></div>
-          <div class="hero-crest"><div class="crest-mark">M<span>K</span></div><p>CODE<br />FORWARD</p></div>
-          <div class="speed-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <p class="world-label bottom-label">GLISSE OU BOUGE LA SOURIS<br /><span>SCÈNE INTERACTIVE</span></p>
+        <div class="hero-world hero-studio reveal" data-delay="110" data-tilt-scene aria-label="Atelier manga interactif de MienthyKaya">
+          <p class="world-label top-label">MIENTHYKAYA.DEV<br /><span>ATELIER // ABIDJAN // 2026</span></p>
+          <div class="studio-radiance" aria-hidden="true"></div><div class="studio-grid" aria-hidden="true"></div>
+          <div class="studio-speed-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="studio-window" aria-hidden="true"><span>01</span><b>夜</b><small>BUILD AFTER DARK</small></div>
+          <div class="studio-console" aria-hidden="true"><span>&gt; npm run vision</span><i></i><i></i><i></i></div>
+
+          <button class="studio-character" type="button" data-studio-action="character" aria-pressed="false" aria-label="Activer le personnage développeur">
+            <span class="character-aura"></span><span class="character-chair"></span><span class="character-leg leg-left"></span><span class="character-leg leg-right"></span>
+            <span class="character-torso"><i class="hoodie-mark">MK</i></span><span class="character-neck"></span>
+            <span class="character-head"><i class="hair hair-a"></i><i class="hair hair-b"></i><i class="eye eye-left"></i><i class="eye eye-right"></i><i class="face-line"></i></span>
+            <span class="character-arm arm-left"></span><span class="character-arm arm-right"></span>
+            <span class="character-bubble">FOCUS<br /><b>100%</b></span>
+          </button>
+
+          <button class="studio-laptop" type="button" data-studio-action="laptop" aria-pressed="false" aria-label="Ouvrir le terminal sur l'ordinateur">
+            <span class="laptop-lid"><i class="laptop-camera"></i><b>&lt;/&gt;</b><em>MIENTHY_OS</em><span class="terminal-lines"><i></i><i></i><i></i></span></span>
+            <span class="laptop-base"><i></i></span><span class="laptop-glow"></span>
+          </button>
+          <p class="studio-instruction" data-studio-status>CLIQUE LE DEV OU L’ORDI<br /><span>SCÈNE INTERACTIVE</span></p>
         </div>
         <a class="scroll-prompt" href="#apropos"><span>Défiler</span><i></i></a>
       </section>
@@ -114,20 +123,20 @@
         <div id="skills-3d-root" class="skills-3d-root" aria-live="polite"></div>
         <div id="skills-3d-fallback" class="skills-fallback section-shell">
           <div class="static-skill-scene" aria-label="Compétences représentées par des cartes 3D">
-            <p class="static-skill-hint">CARROUSEL 3D · GLISSE POUR EXPLORER</p>
+            <p class="static-skill-hint">ATELIER 3D · SAISIS UNE CARTE ET PLACE-LA</p>
             <div class="static-skill-ring" aria-hidden="true"></div>
             <div class="static-skill-core"><span>MK</span><b>STACK<br />MASTER</b></div>
-            <div class="static-skill-card card-js"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><b>JavaScript</b></div>
-            <div class="static-skill-card card-java"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><b>Java</b></div>
-            <div class="static-skill-card card-cpp"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><b>C++</b></div>
-            <div class="static-skill-card card-php"><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><b>PHP</b></div>
-            <div class="static-skill-card card-python"><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><b>Python</b></div>
-            <div class="static-skill-card card-react"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><b>React</b></div>
-            <div class="static-skill-card card-angular"><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><b>Angular</b></div>
-            <div class="static-skill-card card-firebase"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><b>Firebase</b></div>
-            <div class="static-skill-card card-supabase"><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><b>Supabase</b></div>
-            <div class="static-skill-card card-vercel"><img src="https://cdn.simpleicons.org/vercel/111111" alt="" /><b>Vercel</b></div>
-            <div class="static-skill-card card-render"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><b>Render</b></div>
+            <div class="static-skill-card card-js" data-skill-card><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" /><b>JavaScript</b></div>
+            <div class="static-skill-card card-java" data-skill-card><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" /><b>Java</b></div>
+            <div class="static-skill-card card-cpp" data-skill-card><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="" /><b>C++</b></div>
+            <div class="static-skill-card card-php" data-skill-card><img src="https://cdn.simpleicons.org/php/777BB4" alt="" /><b>PHP</b></div>
+            <div class="static-skill-card card-python" data-skill-card><img src="https://cdn.simpleicons.org/python/3776AB" alt="" /><b>Python</b></div>
+            <div class="static-skill-card card-react" data-skill-card><img src="https://cdn.simpleicons.org/react/61DAFB" alt="" /><b>React</b></div>
+            <div class="static-skill-card card-angular" data-skill-card><img src="https://cdn.simpleicons.org/angular/DD0031" alt="" /><b>Angular</b></div>
+            <div class="static-skill-card card-firebase" data-skill-card><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="" /><b>Firebase</b></div>
+            <div class="static-skill-card card-supabase" data-skill-card><img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" /><b>Supabase</b></div>
+            <div class="static-skill-card card-vercel" data-skill-card><img src="https://cdn.simpleicons.org/vercel/111111" alt="" /><b>Vercel</b></div>
+            <div class="static-skill-card card-render" data-skill-card><img src="https://cdn.simpleicons.org/render/46E3B7" alt="" /><b>Render</b></div>
           </div>
         </div>
         <noscript><div class="section-shell skill-note"><span>★</span> Active JavaScript pour explorer le carrousel 3D des compétences.</div></noscript>
@@ -160,6 +169,7 @@
           <div class="project-stage" aria-hidden="true">
             <div class="stage-halo"></div><div class="stage-grid"></div>
             <div class="stage-device">
+              <div class="device-depth"></div><div class="device-reflection"></div><div class="device-volume"></div>
               <div class="device-speaker"></div><div class="device-camera"></div>
               <div class="device-screen">
                 <span class="screen-code" data-stage-code>01 / SOCIAL PWA</span>
