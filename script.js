@@ -160,31 +160,36 @@ if (staticSkillScene) {
 }
 
 const stage = document.querySelector(".project-stage");
-const stageNumber = document.querySelector("[data-stage-number]");
 const stageName = document.querySelector("[data-stage-name]");
 const stageKind = document.querySelector("[data-stage-kind]");
-const stageCode = document.querySelector("[data-stage-code]");
 const stageLogo = document.querySelector("[data-stage-logo]");
+const stageVisual = document.querySelector("[data-stage-visual]");
 const stageSymbol = document.querySelector("[data-stage-symbol]");
-const stageTagLeft = document.querySelector("[data-stage-tag-left]");
-const stageTagRight = document.querySelector("[data-stage-tag-right]");
+const stageComponentOne = document.querySelector("[data-stage-component-one]");
+const stageComponentTwo = document.querySelector("[data-stage-component-two]");
+const stageComponentThree = document.querySelector("[data-stage-component-three]");
 const projectScrollContainer = document.querySelector("[data-project-scroll]");
 let stageSwitchTimer;
 const projectThemes = {
   bardeur: {
-    number: "01", name: "BARDEUR YK", kind: "Vidéos, lives et messagerie", code: "SOCIAL PWA",
-    color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", leftTag: "REACT", rightTag: "SUPABASE", symbol: "BY",
-    logo: "https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png"
+    name: "BARDEUR YK", kind: "Vidéos, lives et messagerie",
+    color: "#24142d", accent: "#ff4a96", accentSoft: "#4fe3ff", symbol: "BY",
+    logo: "assets/bardeur-logo.svg", visual: "assets/bardeur-logo.svg", components: ["LIVE", "REACT", "CHAT"]
   },
-  exam: {
-    number: "02", name: "MON EXAM", kind: "Révision BAC, web & mobile", code: "EDUCATION APP",
-    color: "#17324b", accent: "#ffcc48", accentSoft: "#61dafb", leftTag: "EXPO", rightTag: "BAC 2026", symbol: "EX",
-    logo: "https://raw.githubusercontent.com/jean44997/MON-EXAM/main/frontend/assets/images/icon.png"
+  aib: {
+    name: "AIB IMMOBILIER", kind: "Biens, vente et location",
+    color: "#101d28", accent: "#d5a53d", accentSoft: "#f4e1a2", symbol: "AIB",
+    logo: "assets/aib-logo.jpeg", visual: "assets/aib-hero.jpg", components: ["BIENS", "VENTE", "LOC."]
   },
-  fxpro: {
-    number: "03", name: "FX PRO 2026", kind: "Portefeuille mobile sécurisé", code: "FINTECH PROTOTYPE",
-    color: "#132d27", accent: "#46e3b7", accentSoft: "#f7df1e", leftTag: "FIREBASE", rightTag: "QR PAY", symbol: "FX",
-    logo: "https://raw.githubusercontent.com/jean44997/fx-pro/main/frontend/assets/images/icon.png"
+  drayat: {
+    name: "DRAYAT IMMOBILIER", kind: "Agence immobilière à Abidjan",
+    color: "#202b43", accent: "#7fa8ed", accentSoft: "#e8d4a0", symbol: "D",
+    logo: "assets/drayat-logo.jpg", visual: "assets/drayat-preview.png", components: ["BIENS", "VISITE", "CONSEIL"]
+  },
+  arena: {
+    name: "ARENA AF", kind: "Matchs, défis et classement",
+    color: "#24150f", accent: "#ff6a22", accentSoft: "#ffd7a6", symbol: "1v1",
+    logo: "", visual: "", components: ["EA FC", "RANK", "LIVE"]
   },
 };
 
@@ -197,16 +202,20 @@ const setActiveProject = (entry) => {
   stage.style.setProperty("--stage-color", theme.color);
   stage.style.setProperty("--stage-accent", theme.accent);
   stage.style.setProperty("--stage-accent-soft", theme.accentSoft);
-  if (stageNumber) stageNumber.textContent = theme.number;
   if (stageName) stageName.textContent = theme.name;
   if (stageKind) stageKind.textContent = theme.kind;
-  if (stageCode) stageCode.textContent = theme.code;
   if (stageSymbol) stageSymbol.textContent = theme.symbol;
-  if (stageTagLeft) stageTagLeft.textContent = theme.leftTag;
-  if (stageTagRight) stageTagRight.textContent = theme.rightTag;
+  if (stageComponentOne) stageComponentOne.textContent = theme.components[0];
+  if (stageComponentTwo) stageComponentTwo.textContent = theme.components[1];
+  if (stageComponentThree) stageComponentThree.textContent = theme.components[2];
   if (stageLogo) {
-    stageLogo.src = theme.logo;
+    stageLogo.hidden = !theme.logo;
+    if (theme.logo) stageLogo.src = theme.logo;
     stageLogo.alt = "Logo " + theme.name;
+  }
+  if (stageVisual) {
+    stageVisual.hidden = !theme.visual;
+    if (theme.visual) stageVisual.src = theme.visual;
   }
   stage.classList.remove("is-switching");
   stage.dataset.activeProject = entry.dataset.project;
@@ -240,17 +249,18 @@ if (stage && projectScrollContainer) {
     const finalPosition = entryPositions[entryPositions.length - 1] ?? firstPosition + 1;
     const journey = Math.max(1, finalPosition - firstPosition);
     const progress = isWideLayout ? Math.min(1, Math.max(0, (viewportMarker - firstPosition) / journey)) : 0;
-    // La progression pilote aussi le chapitre : le téléphone atteint FX Pro même si
-    // l'observateur de visibilité du navigateur se déclenche en retard.
-    const chapterIndex = progress >= .78 ? 2 : progress >= .34 ? 1 : 0;
+    // Chaque quart de la traversée active un projet. Le dernier est donc atteint
+    // de façon déterministe, même si l'observateur de visibilité se déclenche tard.
+    const chapterIndex = Math.min(projectEntries.length - 1, Math.floor(progress * projectEntries.length));
     if (projectEntries[chapterIndex] && stage.dataset.activeProject !== projectEntries[chapterIndex].dataset.project) {
       setActiveProject(projectEntries[chapterIndex]);
     }
-    // La course occupe toute la hauteur de la scène : 01 en haut, 03 près du bas.
-    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * 290)}px`);
-    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 16)}px`);
-    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .06).toFixed(3)}`);
-    stage.style.setProperty("--phone-scroll-rotation", `${-1 + progress * 2}deg`);
+    // Le déplacement vertical dépend de la vraie scène et continue jusqu'au 4e projet.
+    const phoneTravel = Math.max(255, Math.min(355, Math.round(stage.clientHeight * .43)));
+    stage.style.setProperty("--phone-scroll-y", `${Math.round(progress * phoneTravel)}px`);
+    stage.style.setProperty("--phone-scroll-x", `${Math.round(Math.sin(progress * Math.PI) * 12)}px`);
+    stage.style.setProperty("--phone-scroll-scale", `${(1 - progress * .045).toFixed(3)}`);
+    stage.style.setProperty("--phone-scroll-rotation", `${-2 + progress * 3.5}deg`);
     stage.style.setProperty("--phone-reflection", `${.13 + progress * .28}`);
     stage.style.setProperty("--screen-scan-shift", `${Math.round(progress * 360)}%`);
     stage.style.setProperty("--screen-scan-opacity", `${.08 + progress * .26}`);

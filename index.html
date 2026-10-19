@@ -15,12 +15,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=local-safe-v7" />
+    <link rel="stylesheet" href="styles.css?v=project-phone-v9" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_svg.min.js"></script>
     <script defer src="developer-lottie-data.js?v=local-safe-v7"></script>
-    <script defer src="phone-lottie-data.js?v=local-safe-v7"></script>
     <script defer src="developer-lottie.js?v=local-safe-v7"></script>
-    <script defer src="phone-lottie.js?v=local-safe-v7"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -151,41 +149,50 @@
         <div class="projects-intro">
           <div class="section-label reveal"><span>04</span><i></i>Projets sélectionnés</div>
           <h2 class="reveal" data-delay="60">Des projets qui<br /><span>se racontent en scrollant.</span></h2>
-          <p class="reveal" data-delay="120">Trois aperçus de projets à explorer. Fais défiler : la scène évolue à chaque chapitre.</p>
+          <p class="reveal" data-delay="120">Quatre projets professionnels à explorer. Fais défiler : le téléphone suit chaque chapitre.</p>
         </div>
 
         <div class="project-scroll" data-project-scroll>
           <div class="project-stage" aria-hidden="true">
-            <div class="stage-halo"></div><div class="stage-grid"></div>
-            <div class="stage-route"><i></i><span>01</span><span>02</span><span>03</span></div>
             <div class="project-phone">
               <div class="phone-app-screen">
-                <span class="screen-code" data-stage-code>SOCIAL PWA</span>
-                <span class="screen-symbol" data-stage-symbol>BY</span>
-                <img data-stage-logo src="https://raw.githubusercontent.com/jean44997/bardeur2/main/src/assets/logo.png" alt="" />
-                <b data-stage-number>01</b><strong data-stage-name>BARDEUR YK</strong><p data-stage-kind>Vidéos, lives et messagerie</p>
+                <div class="screen-visual">
+                  <img class="screen-visual-image" data-stage-visual src="assets/bardeur-logo.svg" alt="" />
+                  <div class="arena-screen-art">
+                    <span class="arena-gamepad" aria-hidden="true">⌁</span><b>1contre1</b><small>COMPÉTITION GAMING</small><strong>Joue tes<br />matchs.</strong>
+                  </div>
+                </div>
+                <div class="phone-components" aria-hidden="true">
+                  <span data-stage-component-one>LIVE</span><span data-stage-component-two>REACT</span><span data-stage-component-three>CHAT</span>
+                </div>
+                <div class="screen-brand"><img class="screen-brand-logo" data-stage-logo alt="" /><span data-stage-symbol>BY</span></div>
+                <strong data-stage-name>BARDEUR YK</strong><p data-stage-kind>Vidéos, lives et messagerie</p>
                 <i class="screen-bar"></i><i class="screen-bar short"></i>
               </div>
-              <div id="phone-mockup-player" data-phone-lottie></div>
+              <img class="project-phone-frame" src="assets/portfolio-phone-frame.png" alt="" />
+              <span class="phone-island" aria-hidden="true"><i></i><b></b></span>
             </div>
-            <div class="stage-tag tag-left" data-stage-tag-left>REACT</div><div class="stage-tag tag-right" data-stage-tag-right>SUPABASE</div>
           </div>
           <div class="project-list">
             <article id="bardeur-yk" class="project-entry is-active" data-project="bardeur">
               <span class="project-index">01</span>
-              <div class="project-copy"><p class="project-type">PWA SOCIALE · VIDÉOS &amp; MESSAGERIE</p><h3>BARDEUR YK</h3><p class="project-description">Plateforme sociale mobile pour vidéos courtes, lives et messagerie interactive. Conçue pour faire défiler, partager et échanger avec une interface immédiate.</p><ul><li>React</li><li>TypeScript</li><li>Supabase</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/bardeur2" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a><a class="project-link project-link-demo" href="https://bardeur2.vercel.app" target="_blank" rel="noreferrer">Voir la démo <span>↗</span></a></div></div>
+              <div class="project-copy"><p class="project-type">PWA SOCIALE · VIDÉOS &amp; MESSAGERIE</p><h3>BARDEUR YK</h3><p class="project-description">Plateforme sociale mobile pour vidéos courtes, lives et messagerie interactive. Conçue pour faire défiler, partager et échanger avec une interface immédiate.</p><ul><li>React</li><li>TypeScript</li><li>Supabase</li></ul><div class="project-actions"><a class="project-link project-link-demo" href="https://bardeur2.vercel.app" target="_blank" rel="noreferrer">Voir le projet <span>↗</span></a></div></div>
             </article>
-            <article id="mon-exam" class="project-entry" data-project="exam">
+            <article id="aib-immobilier" class="project-entry" data-project="aib">
               <span class="project-index">02</span>
-              <div class="project-copy"><p class="project-type">ÉDUCATION · MOBILE &amp; WEB</p><h3>MON EXAM</h3><p class="project-description">Application de préparation au BAC pensée pour plusieurs pays d’Afrique de l’Ouest : sujets, corrigés et progression réunis dans une expérience de révision accessible.</p><ul><li>React Native</li><li>Expo</li><li>Supabase</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/MON-EXAM" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a></div></div>
+              <div class="project-copy"><p class="project-type">IMMOBILIER · VENTE &amp; LOCATION</p><h3>AIB IMMOBILIER</h3><p class="project-description">Vitrine immobilière pensée pour découvrir des biens à Abidjan, consulter les offres et prendre contact facilement pour une vente, une location ou un investissement.</p><ul><li>Biens</li><li>Vente</li><li>Location</li></ul><div class="project-actions"><a class="project-link project-link-demo" href="https://www.aibimmobilierciv.fr/" target="_blank" rel="noreferrer">Voir le projet <span>↗</span></a></div></div>
             </article>
-            <article id="fx-pro" class="project-entry" data-project="fxpro">
+            <article id="drayat-immobilier" class="project-entry" data-project="drayat">
               <span class="project-index">03</span>
-              <div class="project-copy"><p class="project-type">PROTOTYPE FINTECH · MOBILE</p><h3>FX PRO 2026</h3><p class="project-description">Prototype de portefeuille mobile avec QR, authentification biométrique et notifications. Une direction produit claire pour des gestes financiers rapides et rassurants.</p><ul><li>React Native</li><li>Firebase</li><li>TypeScript</li></ul><div class="project-actions"><a class="project-link" href="https://github.com/jean44997/fx-pro" target="_blank" rel="noreferrer">Code GitHub <span>↗</span></a><a class="project-link project-link-demo" href="https://fx-pro-topaz.vercel.app" target="_blank" rel="noreferrer">Voir la démo <span>↗</span></a></div></div>
+              <div class="project-copy"><p class="project-type">IMMOBILIER · EXPÉRIENCE DIGITALE</p><h3>DRAYAT IMMOBILIER</h3><p class="project-description">Une expérience immobilière claire pour rechercher un bien, explorer des opportunités à Abidjan et échanger avec une agence au parcours fluide.</p><ul><li>Catalogue</li><li>Conseil</li><li>Contact</li></ul><div class="project-actions"><a class="project-link project-link-demo" href="https://www.drayatimmobilier.com/" target="_blank" rel="noreferrer">Voir le projet <span>↗</span></a></div></div>
+            </article>
+            <article id="arena-af" class="project-entry" data-project="arena">
+              <span class="project-index">04</span>
+              <div class="project-copy"><p class="project-type">GAMING · COMPÉTITION AFRICAINE</p><h3>ARENA AF</h3><p class="project-description">Plateforme de compétition où les joueurs organisent leurs matchs, suivent leurs défis et prouvent leur niveau dans un univers gaming direct et accessible.</p><ul><li>Matchs</li><li>Défis</li><li>Classement</li></ul><div class="project-actions"><a class="project-link project-link-demo" href="https://arenaaf.vercel.app/" target="_blank" rel="noreferrer">Voir le projet <span>↗</span></a></div></div>
             </article>
           </div>
         </div>
-        <div class="all-projects reveal"><a class="manga-button magnetic" href="https://github.com/jean44997" target="_blank" rel="noreferrer"><span>Voir tous les projets</span><b>↗</b></a><p>Plus de code, d’expérimentations et de projets en cours sur GitHub.</p></div>
+        <div class="all-projects reveal"><a class="manga-button magnetic" href="#contact"><span>Parlons de votre projet</span><b>↗</b></a><p>Une idée professionnelle ? Écrivons la prochaine histoire ensemble.</p></div>
       </section>
 
       <section id="contact" class="contact section-shell">
@@ -215,6 +222,6 @@
       <a href="#accueil">Retour en haut <span>↑</span></a>
     </footer>
     <script type="module" src="skills-3d-react.js?v=lottie-svg-v3"></script>
-    <script src="script.js?v=local-safe-v8"></script>
+    <script src="script.js?v=project-phone-v9"></script>
   </body>
 </html>
